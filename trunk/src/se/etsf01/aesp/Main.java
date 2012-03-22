@@ -4,6 +4,9 @@
  */
 package se.etsf01.aesp;
 
+import javax.swing.UIManager;
+import se.etsf01.aesp.gui.*;
+
 /**
  * The entry point of the AESP tool
  */
@@ -14,7 +17,15 @@ public class Main {
      */
     public static void main(String[] args)
     {
-        // TODO code application logic here
-        System.out.println("AESP Main here!");
+        //This sets the look and feel of all UI controls to native when 
+        //not using Mac OS X.
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        }
+        catch(Exception ex) {
+            System.out.println("Unsupported style, ignoring.");
+        }
+        
+        new MainWindow(); //ugly solution I know, but it works fine!
     }
 }
