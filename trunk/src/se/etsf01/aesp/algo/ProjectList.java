@@ -3,10 +3,9 @@ package se.etsf01.aesp.algo;
 import java.util.*;
 
 /**
- *
- * @author marcus
+ * List of previous projects
  */
-public class ProjectList extends ArrayList
+public class ProjectList extends ArrayList<Project>
 {
-
+    
 }
