@@ -31,7 +31,7 @@ public class RatingTest {
      * Test of fromString method, of class Rating.
      */
     @Test
-    public void testFromString()
+    public void testRating()
     {
         assertEquals(Rating.VERY_LOW, Rating.fromString("Very_Low"));
         assertEquals(Rating.LOW, Rating.fromString("Low"));
@@ -39,5 +39,12 @@ public class RatingTest {
         assertEquals(Rating.HIGH, Rating.fromString("High"));
         assertEquals(Rating.VERY_HIGH, Rating.fromString("Very_High"));
         assertEquals(Rating.EXTRA_HIGH, Rating.fromString("Extra_High"));
+        
+        assertEquals(Rating.VERY_LOW.ordinal(), 0);
+        assertEquals(Rating.LOW.ordinal(), 1);
+        assertEquals(Rating.NOMINAL.ordinal(), 2);
+        assertEquals(Rating.HIGH.ordinal(), 3);
+        assertEquals(Rating.VERY_HIGH.ordinal(), 4);
+        assertEquals(Rating.EXTRA_HIGH.ordinal(), 5);
     }
 }

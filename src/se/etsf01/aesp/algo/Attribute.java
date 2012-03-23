@@ -34,7 +34,7 @@ public enum Attribute
      */
 
     RELY("Required software reliability", Rating.LOW     , Rating.VERY_HIGH),
-    DATA("Data base size"               , Rating.LOW     , Rating.VERY_HIGH),
+    DATA("Database size"                , Rating.LOW     , Rating.VERY_HIGH),
     CPLX("Process complexity"           , Rating.LOW     , Rating.EXTRA_HIGH),
     TIME("Time constraint for cpu"      , Rating.NOMINAL , Rating.EXTRA_HIGH),
     STOR("Main memory constraint"       , Rating.NOMINAL , Rating.EXTRA_HIGH),
