@@ -20,7 +20,7 @@ public class Effort {
      * @param ph The number of person hours
      * @return instance of an new effort with the the person hours set
      */
-    public static Effort instansiatePersonHours(float ph)
+    public static Effort instantiatePersonHours(float ph)
     {
         return new Effort(ph);
     }

@@ -81,7 +81,7 @@ public class Project
     {
         this.attributes = new HashMap<Attribute, Rating>();
         this.linesOfCode = 0;
-        this.actualEffort = Effort.instansiatePersonHours(0);
+        this.actualEffort = Effort.instantiatePersonHours(0);
         this.identifier = "Undefined Project";
     }
 
