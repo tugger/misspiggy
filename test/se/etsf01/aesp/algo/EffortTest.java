@@ -35,8 +35,8 @@ public class EffortTest {
         
         float ph = 12.000003f;
         
-        Effort expResult = Effort.instansiatePersonHours(12.0f);
-        Effort result = Effort.instansiatePersonHours(ph);
+        Effort expResult = Effort.instantiatePersonHours(12.0f);
+        Effort result = Effort.instantiatePersonHours(ph);
         
         assertEquals(expResult, result);
     }
@@ -47,7 +47,7 @@ public class EffortTest {
     @Test
     public void testToPersonHours() {
         System.out.println("toPersonHours");
-        Effort instance = Effort.instansiatePersonHours(120.0f);
+        Effort instance = Effort.instantiatePersonHours(120.0f);
         float expResult = 120.0f;
         float result = instance.toPersonHours();
         assertEquals(expResult, result, 0.0);
@@ -59,7 +59,7 @@ public class EffortTest {
     @Test
     public void testToPersonDays() {
         System.out.println("toPersonDays");
-        Effort instance = Effort.instansiatePersonHours(120.0f);
+        Effort instance = Effort.instantiatePersonHours(120.0f);
         float expResult = 15.0f;
         float result = instance.toPersonDays();
         assertEquals(expResult, result, 1e-5f);
@@ -71,7 +71,7 @@ public class EffortTest {
     @Test
     public void testToPersonMonths() {
         System.out.println("toPersonMonths");
-        Effort instance = Effort.instansiatePersonHours(152.0f);
+        Effort instance = Effort.instantiatePersonHours(152.0f);
         float expResult = 1.0F;
         float result = instance.toPersonMonths();
         assertEquals(expResult, result, 1e-5f);
@@ -83,7 +83,7 @@ public class EffortTest {
     @Test
     public void testToPersonYear() {
         System.out.println("toPersonYear");
-        Effort instance = Effort.instansiatePersonHours(12.0f*152.0f);
+        Effort instance = Effort.instantiatePersonHours(12.0f*152.0f);
         float expResult = 1.0F;
         float result = instance.toPersonYear();
         assertEquals(expResult, result, 1e-5f);

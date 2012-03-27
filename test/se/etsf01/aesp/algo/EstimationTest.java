@@ -55,7 +55,7 @@ public class EstimationTest {
         example.attributes().put(Attribute.RELY, Rating.NOMINAL);
         
         example.setLinesOfCode(100);
-        example.setActualEffort(Effort.instansiatePersonHours(10));
+        example.setActualEffort(Effort.instantiatePersonHours(10));
         
         EstimationResult result = createDefaultEstimator().estimate(0.1, null);
         assertEquals(result.succeeded(), true);
@@ -111,13 +111,13 @@ public class EstimationTest {
     {
         Project proj = new Project();
         proj.setLinesOfCode(105);
-        proj.setActualEffort(Effort.instansiatePersonHours(150.0f));
+        proj.setActualEffort(Effort.instantiatePersonHours(150.0f));
         proj.attributes().put(Attribute.RELY, Rating.NOMINAL);
         proj.attributes().put(Attribute.LEXP, Rating.VERY_HIGH);
         
         Project proj2 = new Project();
         proj2.setLinesOfCode(105);
-        proj2.setActualEffort(Effort.instansiatePersonHours(150.0f));
+        proj2.setActualEffort(Effort.instantiatePersonHours(150.0f));
         proj2.attributes().put(Attribute.RELY, Rating.NOMINAL);
         proj2.attributes().put(Attribute.LEXP, Rating.VERY_HIGH);
         
