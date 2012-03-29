@@ -31,6 +31,8 @@ public class AlphaEstimator implements Estimator
      * @return the estimated result
      */
     private EstimationResult adaptation(Intermediate interm) {
+        if(interm == null)
+            return new EstimationResult();
         
         //Using weighted adaptation
         double effort = 0.0;
