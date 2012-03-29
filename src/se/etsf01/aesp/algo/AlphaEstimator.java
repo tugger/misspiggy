@@ -12,9 +12,11 @@ public class AlphaEstimator implements Estimator
     /**
      * Inner data structure to handle intermediate results
      */
-    private static class Intermediate {
+    private static class Intermediate
+    {
         private ProjectList selectedProjects;
         private ArrayList<Double> similarity;
+        private Project proj;
         
         public Intermediate()
         {
@@ -29,7 +31,31 @@ public class AlphaEstimator implements Estimator
      * @return the estimated result
      */
     private EstimationResult adaptation(Intermediate interm) {
-        return new EstimationResult();
+        
+        //Using weighted adaptation
+        double effort = 0.0;
+        double size = interm.proj.getLinesOfCode();
+        double sumSimilarity = 0.0;
+        
+        //Compute sum of similarity values
+        for(double value : interm.similarity)
+        {
+            sumSimilarity += value;
+        }
+        
+        for(int i = 0; i < interm.selectedProjects.size(); i++)
+        {
+            //TODO: Check if performance is good enough.
+            Project cProj = interm.selectedProjects.get(i);
+            double cSim = interm.similarity.get(i); //similarity
+            double cEffort = cProj.getActualEffort().toPersonHours();
+            double cSize = cProj.getLinesOfCode();
+            
+            effort += (size * cSim * cEffort) / (cSize * sumSimilarity);
+        }
+        
+        EstimationResult result = new EstimationResult(Effort.instantiatePersonHours((float)effort), interm.selectedProjects);
+        return result;
     }
     
     /**
@@ -39,7 +65,15 @@ public class AlphaEstimator implements Estimator
      * @return intermediate data structure containing the list of selected projects and their similarity scores
      */
     private Intermediate similarity(double similarity, Project proj) {
-        return new Intermediate();
+        Intermediate interm = new Intermediate();
+        interm.proj = proj;
+        for(Project cProj : projectlist)
+        {
+            interm.selectedProjects.add(cProj);
+            interm.similarity.add(0.5);
+        }
+        
+        return interm;
     }
     
     /**
@@ -51,5 +85,9 @@ public class AlphaEstimator implements Estimator
     @Override
     public EstimationResult estimate(double similarity, Project proj) {
         return adaptation(similarity(similarity, proj));
+    }
+    
+    public AlphaEstimator(ProjectList list) {
+        this.projectlist = list;
     }
 }
