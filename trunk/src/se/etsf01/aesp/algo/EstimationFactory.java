@@ -41,6 +41,8 @@ public class EstimationFactory
     {
         if(name.equals("default"))
             return createNullEstimator();
+        else if(name.equals("alpha"))
+            return createAlphaEstimator();
         else
             return null;
     }
@@ -49,11 +51,15 @@ public class EstimationFactory
         return new NullEstimator();
     }
     
+    private Estimator createAlphaEstimator() {
+        return new AlphaEstimator(list);
+    }
+    
     /**
      * Get the list of all estimators available
      * @return list of available esimators
      */
     public String[] getIdentifiers() {
-        return new String[] {"default"};
+        return new String[] {"default", "alpha"};
     }
 }
