@@ -77,8 +77,8 @@ public class Parser {
 					.instantiatePersonHours(actualEffortFloat);
 			project.setActualEffort(actualEffort);
 		} catch (NoSuchElementException e) {
+                        System.err.println("File has incorrect syntax.");
 			e.printStackTrace();
-			return null;
 		}
 		return project;
 	}
