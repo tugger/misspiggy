@@ -8,7 +8,7 @@ import java.util.*;
 public class AlphaEstimator implements Estimator 
 {
     private ProjectList projectlist;
-    
+    private SimilarityCalculator similarityCalculator;
     /**
      * Inner data structure to handle intermediate results
      */
@@ -72,7 +72,7 @@ public class AlphaEstimator implements Estimator
         for(Project cProj : projectlist)
         {
             //calculate similarity between the two
-            double similarity = calculateSimilarity(proj, cProj);
+            double similarity = similarityCalculator.calculateSimilarity(proj, cProj);
             //If similarity is larger then threshold add to the collection
             if(similarity >= similarityThreshold){
                 interm.selectedProjects.add(cProj);
@@ -82,17 +82,7 @@ public class AlphaEstimator implements Estimator
         return interm;
     }
     
-    /**
-     * Computes similarity between two projects
-     * @param proj1 
-     * @param proj2
-     * @return calculated simliarity as double
-     */
-    private double calculateSimilarity(Project proj1, Project proj2){
-        return 0.5d;
-    }
-    
-    
+       
     /**
      * Estimates the effort based on similarity for a new project
      * @param similarity the similarity factor
@@ -106,5 +96,6 @@ public class AlphaEstimator implements Estimator
     
     public AlphaEstimator(ProjectList list) {
         this.projectlist = list;
+        this.similarityCalculator = new SimilarityCalculator();
     }
 }
