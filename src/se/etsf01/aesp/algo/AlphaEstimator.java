@@ -62,21 +62,36 @@ public class AlphaEstimator implements Estimator
     
     /**
      * Computes similarity for all projects and selects the ones that are above the limit
-     * @param similarity the similarity threshold
+     * @param similarityThreshold the similarity threshold
      * @param proj the project to match against
      * @return intermediate data structure containing the list of selected projects and their similarity scores
      */
-    private Intermediate similarity(double similarity, Project proj) {
+    private Intermediate getSimilarProjects(double similarityThreshold, Project proj) {
         Intermediate interm = new Intermediate();
         interm.proj = proj;
         for(Project cProj : projectlist)
         {
-            interm.selectedProjects.add(cProj);
-            interm.similarity.add(0.5);
+            //calculate similarity between the two
+            double similarity = calculateSimilarity(proj, cProj);
+            //If similarity is larger then threshold add to the collection
+            if(similarity >= similarityThreshold){
+                interm.selectedProjects.add(cProj);
+                interm.similarity.add(similarity);
+            }
         }
-        
         return interm;
     }
+    
+    /**
+     * Computes similarity between two projects
+     * @param proj1 
+     * @param proj2
+     * @return calculated simliarity as double
+     */
+    private double calculateSimilarity(Project proj1, Project proj2){
+        return 0.5d;
+    }
+    
     
     /**
      * Estimates the effort based on similarity for a new project
@@ -86,7 +101,7 @@ public class AlphaEstimator implements Estimator
      */
     @Override
     public EstimationResult estimate(double similarity, Project proj) {
-        return adaptation(similarity(similarity, proj));
+        return adaptation(getSimilarProjects(similarity, proj));
     }
     
     public AlphaEstimator(ProjectList list) {
