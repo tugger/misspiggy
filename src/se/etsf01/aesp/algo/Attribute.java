@@ -118,12 +118,13 @@ public enum Attribute
      * @param rating The specific project rating
      * @return a value between 0 and 1 (inclusive), the range is clamped
      */
-    public float getNormalizedRating(Rating rating)
+    public double getNormalizedRating(Rating rating)
     {
+        //TODO: Add support for discrete values where rating=0 if not the same and rating=1 if it is
         int length = (this.max.ordinal() - this.min.ordinal());
         int clamped = Math.min(Math.max(min.ordinal(),rating.ordinal()),max.ordinal());
         
-        return (clamped - min.ordinal()) / (float)length;
+        return (clamped - min.ordinal()) / (double)length;
     }
     
     /**
