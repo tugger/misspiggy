@@ -1,6 +1,7 @@
 package se.etsf01.aesp.algo;
 
 import java.util.*;
+import java.text.*;
 
 /**
  * Represents a single project
@@ -113,6 +114,8 @@ public class Project
         //Remove trailing ","
         sb.deleteCharAt(sb.length()-1);
         
-        return String.format("Project: %1$ {%2$,%3$,%4$}", identifier, sb.toString(), linesOfCode, actualEffort.toPersonHours());
+        MessageFormat formatter = new MessageFormat("Project: {0} ({1},{2,number,#},{3,number,#.##})", Locale.US);
+        
+        return formatter.format(new Object[] { identifier, sb.toString(), linesOfCode, actualEffort.toPersonMonths()});
     }
 }

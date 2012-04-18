@@ -33,7 +33,16 @@ public class Parser {
 			try {
 				int i = 1;
 				while (scanner.hasNextLine()) {
-					Project project = processLine(scanner.nextLine());
+                                        String line = scanner.nextLine();
+                                        String trimmedLine = line.trim();
+                                        if(trimmedLine.startsWith("%"))
+                                            continue;
+                                        else if(trimmedLine.length() == 0)
+                                            continue;
+                                        else if(trimmedLine.startsWith("@"))
+                                            continue;
+                                            
+					Project project = processLine(line);
 					project.setIdentifier("Project " + i);
 					i++;
 					pl.add(project);
@@ -59,7 +68,7 @@ public class Parser {
 	 */
 	protected Project processLine(String aLine) {
 		Scanner scanner = new Scanner(aLine);
-		scanner.useDelimiter(",");
+		scanner.useDelimiter("[,%(\\s)]+");
 		Project project = new Project();
 		Map<Attribute, Rating> attributes = project.attributes();
 		try {
@@ -69,7 +78,7 @@ public class Parser {
 				attributes.put(attr, Rating.fromString(ratingStr));
 			}
 			String locStr = scanner.next().trim();
-			project.setLinesOfCode(Integer.valueOf(locStr)*1000);
+			project.setLinesOfCode(Math.round(Float.valueOf(locStr)*1000.0f));
 
 			String actualEffortStr = scanner.next().trim();
 			float actualEffortFloat = Float.valueOf(actualEffortStr);
