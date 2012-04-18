@@ -7,6 +7,7 @@ import java.lang.reflect.*;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
@@ -421,8 +422,16 @@ public class EffortGui extends javax.swing.JFrame {
         }
         readFromConfig();
 
-
-
+        EstimationFactory factory = new EstimationFactory(projectlist);
+        Estimator estim = factory.createEstimator();
+        
+        ArrayList<EstimationResult> results = new ArrayList<EstimationResult>();
+        
+        //TODO: Might not be the fastest way to do it, but it is simple.
+        EstimationResult result = estim.estimate(SimThreshold.getValue()/100.0, proj);
+        
+        System.out.println(result.getEstimatedEffort());
+        System.out.println(result.getAdaptiationSource().size());
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
