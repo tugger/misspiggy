@@ -2,7 +2,11 @@
 
 package se.etsf01.aesp.gui;
 
-import se.etsf01.aesp.algo.Rating;
+import java.io.File;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import se.etsf01.aesp.algo.*;
 
 /*
  * To change this template, choose Tools | Templates
@@ -15,11 +19,14 @@ import se.etsf01.aesp.algo.Rating;
  */
 public class EffortGui extends javax.swing.JFrame {
 
+    private ProjectList projectlist;
+    
     /**
      * Creates new form EffortGui
      */
     public EffortGui() {
         initComponents();
+        setVisible(true);
     }
 
     /**
@@ -66,8 +73,12 @@ public class EffortGui extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        mnuBar = new javax.swing.JMenuBar();
+        mnuDatabase = new javax.swing.JMenu();
+        mnuOpenDatabase = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AESP Tool v1");
 
         RELY.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low", "Nominal", "High", "Very_High" }));
         RELY.setSelectedIndex(1);
@@ -181,6 +192,21 @@ public class EffortGui extends javax.swing.JFrame {
             }
         });
 
+        mnuDatabase.setText("Database");
+
+        mnuOpenDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        mnuOpenDatabase.setLabel("Open Database...");
+        mnuOpenDatabase.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuOpenDatabaseActionPerformed(evt);
+            }
+        });
+        mnuDatabase.add(mnuOpenDatabase);
+
+        mnuBar.add(mnuDatabase);
+
+        setJMenuBar(mnuBar);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -212,7 +238,7 @@ public class EffortGui extends javax.swing.JFrame {
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel3)
                                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, CPLX, 0, 0, Short.MAX_VALUE)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, CPLX, 0, 1, Short.MAX_VALUE)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, TURN, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, MODP, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .add(jLabel8)
@@ -239,8 +265,8 @@ public class EffortGui extends javax.swing.JFrame {
                         .add(jLabel6)
                         .add(jLabel10)
                         .add(jLabel5)
-                        .add(AEXP, 0, 0, Short.MAX_VALUE)
-                        .add(STOR, 0, 101, Short.MAX_VALUE)
+                        .add(AEXP, 0, 1, Short.MAX_VALUE)
+                        .add(STOR, 0, 1, Short.MAX_VALUE)
                         .add(SCED, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(jButton1))
                 .add(35, 35, 35))
@@ -344,6 +370,33 @@ public class EffortGui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_VIRTActionPerformed
 
+    private void mnuOpenDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenDatabaseActionPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setFileFilter(new FileFilter() {
+
+            @Override
+            public boolean accept(File file) {
+                if(file.getAbsolutePath().toLowerCase().endsWith(".txt"))
+                    return true;
+                else
+                    return false;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Project Datbase Format (*.txt)";
+            }
+        });
+        
+        chooser.setApproveButtonText("Open");
+        if(chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION)
+        {
+            Parser parser = new Parser(chooser.getSelectedFile().getAbsolutePath());
+            projectlist = parser.parseFile();
+            JOptionPane.showMessageDialog(this, "Found " + String.valueOf(projectlist.size()) + " projects.", "Loading complete.", JOptionPane.OK_OPTION);
+        }
+    }//GEN-LAST:event_mnuOpenDatabaseActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -420,6 +473,9 @@ public class EffortGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JMenuBar mnuBar;
+    private javax.swing.JMenu mnuDatabase;
+    private javax.swing.JMenuItem mnuOpenDatabase;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
