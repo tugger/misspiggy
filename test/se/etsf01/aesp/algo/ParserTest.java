@@ -17,9 +17,9 @@ public class ParserTest {
     
     
     @Test
-    public void testParsingWith2Projects()
+    public void testParsingWith4Projects()
     {
-        String filePath = "test/se/etsf01/aesp/algo/test_data"; //TODO: Create file and add path.
+        String filePath = "test/se/etsf01/aesp/algo/test_data";
         Parser parser = new Parser(filePath);
         ProjectList projectList = parser.parseFile();
         
@@ -41,9 +41,9 @@ public class ParserTest {
         assertEquals(attributes0.get(Attribute.TOOL), Rating.NOMINAL);
         assertEquals(attributes0.get(Attribute.SCED), Rating.LOW);
         
-        assertEquals(project0.getLinesOfCode(), 70);
+        assertEquals(project0.getLinesOfCode(), 70000);
         assertEquals(project0.getActualEffort(), Effort
-					.instantiatePersonHours(278));
+					.instantiatePersonMonths(278));
         
         Project project1 = projectList.get(1);
         Map<Attribute,Rating> attributes1 = project1.attributes();
@@ -63,8 +63,52 @@ public class ParserTest {
         assertEquals(attributes1.get(Attribute.TOOL), Rating.HIGH);
         assertEquals(attributes1.get(Attribute.SCED), Rating.LOW);
         
-        assertEquals(project1.getLinesOfCode(), 227);
+        assertEquals(project1.getLinesOfCode(), 227000);
         assertEquals(project1.getActualEffort(), Effort
-					.instantiatePersonHours(1181));
+					.instantiatePersonMonths(1181));
+        
+        Project project2 = projectList.get(2);
+        Map<Attribute,Rating> attributes2 = project2.attributes();
+        assertEquals(attributes2.get(Attribute.RELY), Rating.NOMINAL);
+        assertEquals(attributes2.get(Attribute.DATA), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.CPLX), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.TIME), Rating.VERY_HIGH);
+        assertEquals(attributes2.get(Attribute.STOR), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.VIRT), Rating.LOW);
+        assertEquals(attributes2.get(Attribute.TURN), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.ACAP), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.AEXP), Rating.NOMINAL);
+        assertEquals(attributes2.get(Attribute.PCAP), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.VEXP), Rating.LOW);
+        assertEquals(attributes2.get(Attribute.LEXP), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.MODP), Rating.HIGH);
+        assertEquals(attributes2.get(Attribute.TOOL), Rating.NOMINAL);
+        assertEquals(attributes2.get(Attribute.SCED), Rating.LOW);
+        
+        assertEquals(177900, project2.getLinesOfCode());
+        assertEquals(project2.getActualEffort(), Effort
+					.instantiatePersonMonths(1248.0f));
+        
+        Project project3 = projectList.get(3);
+        Map<Attribute,Rating> attributes3 = project3.attributes();
+        assertEquals(attributes3.get(Attribute.RELY), Rating.HIGH);
+        assertEquals(attributes3.get(Attribute.DATA), Rating.LOW);
+        assertEquals(attributes3.get(Attribute.CPLX), Rating.HIGH);
+        assertEquals(attributes3.get(Attribute.TIME), Rating.NOMINAL);
+        assertEquals(attributes3.get(Attribute.STOR), Rating.NOMINAL);
+        assertEquals(attributes3.get(Attribute.VIRT), Rating.LOW);
+        assertEquals(attributes3.get(Attribute.TURN), Rating.LOW);
+        assertEquals(attributes3.get(Attribute.ACAP), Rating.NOMINAL);
+        assertEquals(attributes3.get(Attribute.AEXP), Rating.NOMINAL);
+        assertEquals(attributes3.get(Attribute.PCAP), Rating.NOMINAL);
+        assertEquals(attributes3.get(Attribute.VEXP), Rating.NOMINAL);
+        assertEquals(attributes3.get(Attribute.LEXP), Rating.HIGH);
+        assertEquals(attributes3.get(Attribute.MODP), Rating.HIGH);
+        assertEquals(attributes3.get(Attribute.TOOL), Rating.NOMINAL);
+        assertEquals(attributes3.get(Attribute.SCED), Rating.LOW);
+        
+        assertEquals(project3.getLinesOfCode(), 66600);
+        assertEquals(project3.getActualEffort(), Effort
+					.instantiatePersonMonths(352.8f));
     }
 }

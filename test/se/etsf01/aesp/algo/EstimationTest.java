@@ -24,8 +24,8 @@ public class EstimationTest {
      * @return populated project list of all trainging set data. 
      */
     private ProjectList loadTraingset() {
-        fail("No training sets are available yet");
-        return null;
+        Parser parser = new Parser("test/se/etsf01/aesp/algo/similarity_test_data");
+        return parser.parseFile();
     }
     
     /**
@@ -44,27 +44,9 @@ public class EstimationTest {
     }
     
     @Test
-    public void testEstimatorTC1()
-    {
-        Project example = new Project();
-        
-        //TODO: Fill in all the proper charahcteristcs for the test
-        fail("Not Completed!"); //TODO: Remove me when finished.
-        example.attributes().put(Attribute.RELY, Rating.NOMINAL);
-        example.attributes().put(Attribute.RELY, Rating.NOMINAL);
-        example.attributes().put(Attribute.RELY, Rating.NOMINAL);
-        
-        example.setLinesOfCode(100);
-        example.setActualEffort(Effort.instantiatePersonHours(10));
-        
-        EstimationResult result = createDefaultEstimator().estimate(0.1, null);
-        assertEquals(result.succeeded(), true);
-    }
-    
-    @Test
     public void testEstimatorAccuracy()
     {
-        double similarity = 0.5;
+        double similarity = 0.7;
         ProjectList trainginset = loadTraingset();
         
         Estimator estim = createDefaultEstimator();
@@ -96,7 +78,12 @@ public class EstimationTest {
             if(Math.abs(relerror) < 0.3)
                 numWithinTolerance++;
             
-            System.out.println("Estimated Project " + String.valueOf(i) + ": " + String.valueOf(Math.round(relerror*10000.0f) / 100.0f) + "%");
+            String pmEffort = String.valueOf(results.get(i).getEstimatedEffort().toPersonMonths());
+            
+            System.out.println("Estimated Project " + String.valueOf(i) + ": " + 
+                    String.valueOf(Math.round(relerror*10000.0f) / 100.0f) + "% ( " + pmEffort + " pm)");
+            
+            System.out.println(trainginset.get(i));
         }
         
         System.out.println(String.valueOf(numWithinTolerance) + "/" + String.valueOf(results.size()) + " are within tolerance.");

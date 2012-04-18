@@ -2,7 +2,11 @@
 
 package se.etsf01.aesp.gui;
 
+import java.lang.reflect.*;
 import java.io.File;
+import java.util.HashMap;
+import java.util.HashSet;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
@@ -73,12 +77,15 @@ public class EffortGui extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        LOC = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
         mnuBar = new javax.swing.JMenuBar();
         mnuDatabase = new javax.swing.JMenu();
         mnuOpenDatabase = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AESP Tool v1");
+        setResizable(false);
 
         RELY.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Low", "Nominal", "High", "Very_High" }));
         RELY.setSelectedIndex(1);
@@ -192,6 +199,15 @@ public class EffortGui extends javax.swing.JFrame {
             }
         });
 
+        LOC.setText("100.0");
+        LOC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                LOCActionPerformed(evt);
+            }
+        });
+
+        jLabel17.setText("SIZE (kLOC)");
+
         mnuDatabase.setText("Database");
 
         mnuOpenDatabase.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
@@ -211,13 +227,17 @@ public class EffortGui extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButton1)
+                .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(61, 61, 61)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel7)
+                    .add(jLabel12)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel7)
-                            .add(jLabel12)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(layout.createSequentialGroup()
@@ -242,33 +262,36 @@ public class EffortGui extends javax.swing.JFrame {
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, TURN, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, MODP, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .add(jLabel8)
-                                    .add(jLabel14))
-                                .add(31, 31, 31)
+                                    .add(jLabel14)))
+                            .add(layout.createSequentialGroup()
+                                .add(jLabel16)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(SimThreshold, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .add(31, 31, 31)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(TOOL, 0, 108, Short.MAX_VALUE)
+                            .add(ACAP, 0, 108, Short.MAX_VALUE)
+                            .add(TIME, 0, 108, Short.MAX_VALUE)
+                            .add(layout.createSequentialGroup()
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(TOOL, 0, 108, Short.MAX_VALUE)
+                                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                                     .add(jLabel15)
                                     .add(jLabel9)
-                                    .add(jLabel4)
-                                    .add(ACAP, 0, 108, Short.MAX_VALUE)
-                                    .add(TIME, 0, 108, Short.MAX_VALUE))))
-                        .add(6, 6, 6))
-                    .add(layout.createSequentialGroup()
-                        .add(jLabel16)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(SimThreshold, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(36, 36, 36)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(103, 103, 103)))
-                .add(30, 30, 30)
+                                    .add(jLabel4))
+                                .add(0, 0, Short.MAX_VALUE)))))
+                .add(36, 36, 36)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(layout.createSequentialGroup()
+                        .add(6, 6, 6)
+                        .add(jLabel17))
                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                         .add(jLabel6)
                         .add(jLabel10)
                         .add(jLabel5)
                         .add(AEXP, 0, 1, Short.MAX_VALUE)
                         .add(STOR, 0, 1, Short.MAX_VALUE)
-                        .add(SCED, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .add(jButton1))
+                        .add(SCED, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(LOC)))
                 .add(35, 35, 35))
         );
         layout.setVerticalGroup(
@@ -320,18 +343,22 @@ public class EffortGui extends javax.swing.JFrame {
                     .add(TOOL, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(SCED, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel17)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(LOC, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton1)
+                        .addContainerGap())
                     .add(layout.createSequentialGroup()
-                        .add(44, 44, 44)
-                        .add(jLabel16))
-                    .add(layout.createSequentialGroup()
-                        .add(45, 45, 45)
-                        .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(layout.createSequentialGroup()
-                        .add(30, 30, 30)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jButton1)
-                            .add(SimThreshold, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(25, 25, 25))
+                        .add(31, 31, 31)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(SimThreshold, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel16))
+                        .addContainerGap())))
         );
 
         bindingGroup.bind();
@@ -353,8 +380,36 @@ public class EffortGui extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         //To get attributes use the follwing line as a template.
-        Rating.fromString((String)RELY.getSelectedItem()); //To get the value of RELY
+        Project proj = new Project();
+        Field[] fields = this.getClass().getDeclaredFields();
         
+        HashMap<String,Attribute> attributes = new HashMap<String,Attribute>();
+        for(Attribute attr : Attribute.values())
+            attributes.put(attr.name(),attr);
+        
+        for(Field field : fields) {
+            if(attributes.containsKey(field.getName()))
+            {
+                try {
+                    JComboBox current = (JComboBox)field.get(this);
+                    proj.attributes().put(attributes.get(field.getName()), Rating.fromString((String)current.getSelectedItem()));
+                }
+                catch(IllegalAccessException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+        
+        try {
+            float linesOfCode = Float.parseFloat(LOC.getText());
+            proj.setLinesOfCode(Math.round(linesOfCode*1000.0f));
+        }
+        catch(NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid Lines of Code value, check that field!", "AESP Tool", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        System.out.println(proj);
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -396,6 +451,10 @@ public class EffortGui extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Found " + String.valueOf(projectlist.size()) + " projects.", "Loading complete.", JOptionPane.OK_OPTION);
         }
     }//GEN-LAST:event_mnuOpenDatabaseActionPerformed
+
+    private void LOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOCActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_LOCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -444,6 +503,7 @@ public class EffortGui extends javax.swing.JFrame {
     private javax.swing.JComboBox CPLX;
     private javax.swing.JComboBox DATA;
     private javax.swing.JComboBox LEXP;
+    private javax.swing.JTextField LOC;
     private javax.swing.JComboBox MODP;
     private javax.swing.JComboBox PCAP;
     private javax.swing.JComboBox RELY;
@@ -464,6 +524,7 @@ public class EffortGui extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -1,2 +1,30 @@
-Nominal,High,Very_High,Nominal,Nominal,Low,Nominal,High,Nominal,Very_High,Low,Nominal,High,Nominal,Low,70,278,                           %	instance number:	1,
-Very_High,High,High,Very_High,Very_High,Nominal,Nominal,Very_High,Very_High,Very_High,Nominal,High,High,High,Low,227,1181,               %	instance number:	2,
+% Comment that shall be supported!
+
+% A bit of white space
+
+@attribute RELY {Nominal,Very_High,High,Low} %1
+@attribute DATA {High,Low,Nominal,Very_High} %2 
+@attribute CPLX {Very_High,High,Nominal,Extra_High,Low} %3
+@attribute TIME {Nominal,Very_High,High,Extra_High} %4
+@attribute STOR {Nominal,Very_High,High,Extra_High} %5
+@attribute VIRT {Low,Nominal,High} %6
+@attribute TURN {Nominal,High,Low} %7
+@attribute ACAP {High,Very_High,Nominal} %8
+@attribute AEXP {Nominal,Very_High,High} %9
+@attribute PCAP {Very_High,High,Nominal} %10
+@attribute VEXP {Low,Nominal,High} %11
+@attribute LEXP {Nominal,High,Very_Low,Low} %12
+@attribute MODP {High,Nominal,Very_High,Low} %13
+@attribute TOOL {Nominal,High,Very_High,Very_Low,Low} %14
+@attribute SCED {Low,Nominal,High} %15
+@attribute LOC numeric %16
+@attribute ACT_EFFORT numeric %17
+        
+% Some other crap and the data crap
+    
+@data
+    
+Nominal,High,Very_High,Nominal,Nominal,Low,Nominal,High,Nominal,Very_High,Low,Nominal,High,Nominal,Low,70,278                           %	instance number:	1,
+Very_High,High,High,Very_High,Very_High,Nominal,Nominal,Very_High,Very_High,Very_High,Nominal,High,High,High,Low,227,1181               %	instance number:	2,
+Nominal,High,High,Very_High,High,Low,High,High,Nominal,High,Low,High,High,Nominal,Low,177.9,1248                                        %	instance number:	3,
+High,Low,High,Nominal,Nominal,Low,Low,Nominal,Nominal,Nominal,Nominal,High,High,Nominal,Low,66.6,352.8                                  %	instance number:	33
