@@ -29,7 +29,7 @@ public class EstimationFactory
      */
     public Estimator createEstimator()
     {
-        return createEstimator("default");
+        return createEstimator("alpha");
     }
     
     /**

@@ -26,6 +26,6 @@ public class Main {
             System.out.println("Unsupported style, ignoring.");
         }
         
-        new MainWindow(); //ugly solution I know, but it works fine!
+        new EffortGui(); //ugly solution I know, but it works fine!
     }
 }

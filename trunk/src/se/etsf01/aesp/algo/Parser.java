@@ -69,12 +69,12 @@ public class Parser {
 				attributes.put(attr, Rating.fromString(ratingStr));
 			}
 			String locStr = scanner.next().trim();
-			project.setLinesOfCode(Integer.valueOf(locStr));
+			project.setLinesOfCode(Integer.valueOf(locStr)*1000);
 
 			String actualEffortStr = scanner.next().trim();
 			float actualEffortFloat = Float.valueOf(actualEffortStr);
 			Effort actualEffort = Effort
-					.instantiatePersonHours(actualEffortFloat);
+					.instantiatePersonMonths(actualEffortFloat);
 			project.setActualEffort(actualEffort);
 		} catch (NoSuchElementException e) {
                         System.err.println("File has incorrect syntax.");

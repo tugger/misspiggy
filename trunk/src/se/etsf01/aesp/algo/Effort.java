@@ -26,6 +26,16 @@ public class Effort {
     }
     
     /**
+     * Create an effort from person months
+     * @param ph The number of person months
+     * @return instance of an new effort with the the person month set
+     */
+    public static Effort instantiatePersonMonths(float pm)
+    {
+        return new Effort(pm*152.0f);
+    }
+    
+    /**
      * Get the person hour effort
      * @return person hour effort
      */
