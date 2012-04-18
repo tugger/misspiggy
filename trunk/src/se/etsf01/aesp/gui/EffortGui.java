@@ -430,9 +430,8 @@ public class EffortGui extends javax.swing.JFrame {
         //TODO: Might not be the fastest way to do it, but it is simple.
         EstimationResult result = estim.estimate(SimThreshold.getValue()/100.0, proj);
         
-        System.out.println(result.getEstimatedEffort());
-        System.out.println(result.getAdaptiationSource().size());
-
+        JOptionPane.showMessageDialog(this, result.getEstimatedEffort().toString() + " calculated from " + Integer.toString(result.getAdaptiationSource().size()) + " sources", "AESP Tool", JOptionPane.INFORMATION_MESSAGE);
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void TIMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TIMEActionPerformed
