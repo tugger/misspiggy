@@ -418,27 +418,27 @@ public class EffortGui extends javax.swing.JFrame {
         System.out.println(proj);
 
         //If you want to run with the database from the config file
-        if (projectlist == null){
-             Parser parser = new Parser(path);
+        if (projectlist == null) {
+            Parser parser = new Parser(path);
             projectlist = parser.parseFile();
         }
 
         EstimationFactory factory = new EstimationFactory(projectlist);
         Estimator estim = factory.createEstimator();
-        
+
         ArrayList<EstimationResult> results = new ArrayList<EstimationResult>();
-        
-       
+
+
         try {
             writeToConfig();
         } catch (IOException ex) {
-           JOptionPane.showMessageDialog(this, "IOException trying to write to configfile", "AESP Tool", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "IOException trying to write to configfile", "AESP Tool", JOptionPane.ERROR_MESSAGE);
         }
         //TODO: Might not be the fastest way to do it, but it is simple.
-        EstimationResult result = estim.estimate(SimThreshold.getValue()/100.0, proj);
-        
+        EstimationResult result = estim.estimate(SimThreshold.getValue() / 100.0, proj);
+
         JOptionPane.showMessageDialog(this, result.getEstimatedEffort().toString() + " calculated from " + Integer.toString(result.getAdaptiationSource().size()) + " sources", "AESP Tool", JOptionPane.INFORMATION_MESSAGE);
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void TIMEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TIMEActionPerformed
@@ -500,7 +500,7 @@ public class EffortGui extends javax.swing.JFrame {
                     }
                 }
             } catch (FileNotFoundException ex) {
-                           JOptionPane.showMessageDialog(this, "Did not find config file", "AESP Tool", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Did not find config file", "AESP Tool", JOptionPane.ERROR_MESSAGE);
 
             }
 
@@ -511,11 +511,15 @@ public class EffortGui extends javax.swing.JFrame {
         File config = new File("config.ini");
         if (!config.exists()) {
             System.out.println("config doesnt exist, creating new one");
-            if (config.createNewFile()) {
-                System.out.println("Created new config file");
-            }
+        } else {
+            config.delete();
         }
-        FileWriter fstream  = new FileWriter(config);
+        //Creates new config file everytime to make sure the information is correct and up to date.
+        if (config.createNewFile()) {
+            System.out.println("Created new config file");
+        }
+
+        FileWriter fstream = new FileWriter(config);
         BufferedWriter out = new BufferedWriter(fstream);
         out.write("path: " + path);
         out.close();
