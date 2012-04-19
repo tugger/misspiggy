@@ -37,7 +37,9 @@ public class EffortGui extends javax.swing.JFrame {
      */
     public EffortGui() {
         initComponents();
+        readFromConfig();
         setVisible(true);
+
     }
 
     /**
@@ -414,19 +416,24 @@ public class EffortGui extends javax.swing.JFrame {
         }
 
         System.out.println(proj);
-        path = "path";
-        try {
-            writeToConfig();
-        } catch (IOException ex) {
-           JOptionPane.showMessageDialog(this, "IOException trying to write to configfile", "AESP Tool", JOptionPane.ERROR_MESSAGE);
+
+        //If you want to run with the database from the config file
+        if (projectlist == null){
+             Parser parser = new Parser(path);
+            projectlist = parser.parseFile();
         }
-        readFromConfig();
 
         EstimationFactory factory = new EstimationFactory(projectlist);
         Estimator estim = factory.createEstimator();
         
         ArrayList<EstimationResult> results = new ArrayList<EstimationResult>();
         
+       
+        try {
+            writeToConfig();
+        } catch (IOException ex) {
+           JOptionPane.showMessageDialog(this, "IOException trying to write to configfile", "AESP Tool", JOptionPane.ERROR_MESSAGE);
+        }
         //TODO: Might not be the fastest way to do it, but it is simple.
         EstimationResult result = estim.estimate(SimThreshold.getValue()/100.0, proj);
         
@@ -448,6 +455,7 @@ public class EffortGui extends javax.swing.JFrame {
 
     private void mnuOpenDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenDatabaseActionPerformed
         JFileChooser chooser = new JFileChooser();
+
         chooser.setFileFilter(new FileFilter() {
 
             @Override
