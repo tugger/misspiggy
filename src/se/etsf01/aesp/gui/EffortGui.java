@@ -478,7 +478,7 @@ public class EffortGui extends javax.swing.JFrame {
             path = chooser.getSelectedFile().getAbsolutePath();
             Parser parser = new Parser(path);
             projectlist = parser.parseFile();
-            JOptionPane.showMessageDialog(this, "Found " + String.valueOf(projectlist.size()) + " projects.", "Loading complete.", JOptionPane.OK_OPTION);
+            JOptionPane.showMessageDialog(this, "Found " + String.valueOf(projectlist.size()) + " projects.", "Loading complete.", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_mnuOpenDatabaseActionPerformed
 
