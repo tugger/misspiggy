@@ -436,7 +436,8 @@ public class EffortGui extends javax.swing.JFrame {
         }
         //TODO: Might not be the fastest way to do it, but it is simple.
         EstimationResult result = estim.estimate(SimThreshold.getValue() / 100.0, proj);
-
+        ReportWindow rp = new ReportWindow(result);
+        rp.setVisible(true);
         JOptionPane.showMessageDialog(this, result.getEstimatedEffort().toString() + " calculated from " + Integer.toString(result.getAdaptiationSource().size()) + " sources", "AESP Tool", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -483,7 +484,7 @@ public class EffortGui extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuOpenDatabaseActionPerformed
 
     private void readFromConfig() {
-        File config = new File("config.ini");
+        File config = new File("/home/tugger/NetBeansProjects/trunk/dist/config.ini");
         if (!config.exists()) {
             System.out.println("cant find config file");
 
