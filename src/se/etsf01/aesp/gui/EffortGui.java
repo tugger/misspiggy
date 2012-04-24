@@ -1,5 +1,7 @@
 package se.etsf01.aesp.gui;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -37,10 +39,13 @@ public class EffortGui extends javax.swing.JFrame {
      */
     public EffortGui() {
         initComponents();
+        setPosition();
         readFromConfig();
         setVisible(true);
 
     }
+    
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -438,7 +443,6 @@ public class EffortGui extends javax.swing.JFrame {
         EstimationResult result = estim.estimate(SimThreshold.getValue() / 100.0, proj);
         ReportWindow rp = new ReportWindow(result);
         rp.setVisible(true);
-        JOptionPane.showMessageDialog(this, result.getEstimatedEffort().toString() + " calculated from " + Integer.toString(result.getAdaptiationSource().size()) + " sources", "AESP Tool", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -458,7 +462,6 @@ public class EffortGui extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
 
         chooser.setFileFilter(new FileFilter() {
-
             @Override
             public boolean accept(File file) {
                 if (file.getAbsolutePath().toLowerCase().endsWith(".txt")) {
@@ -529,6 +532,19 @@ public class EffortGui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_LOCActionPerformed
 
+      private void setPosition() {
+        // Get the size of the screen
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+ 
+    // Determine the new location of the window
+    int w = getSize().width;
+    int h = getSize().height;
+   // int x = (dim.width-w)/2;
+   // int y = (dim.height-h)/2;
+
+    // Move the window
+    setLocation((dim.width-w)/2, (dim.height-h)/2);
+    }
     /**
      * @param args the command line arguments
      */
