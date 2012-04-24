@@ -7,7 +7,7 @@ import java.text.*;
 /**
  * Represents a single project
  */
-public class Project
+public class Project implements Comparable
 {
 
     private HashMap<Attribute,Rating> attributes;
@@ -23,6 +23,7 @@ public class Project
     private String identifier;
     private int linesOfCode;
     private Effort actualEffort;
+    private double similiarity;
     
     /**
      * Get the project identifier
@@ -53,7 +54,14 @@ public class Project
     public int getLinesOfCode() {
         return linesOfCode;
     }
+    
+    public double getSimilarity() {
+        return similiarity;
+    }
 
+    public void setSimilarity(double similarity) {
+        this.similiarity = similarity;
+    }
     /**
      * Set the actual effort
      * @param actualEffort the effort, must be something
@@ -119,4 +127,19 @@ public class Project
         
         return formatter.format(new Object[] { identifier, sb.toString(), linesOfCode, actualEffort.toPersonMonths()});
     }
+
+    
+    @Override
+    public int compareTo(Object t) {
+        //a negative integer, zero, or a positive integer as this object is less than, equal to, or greater than the specified object.
+        double pSimilarity = ((Project) t).getSimilarity();
+        if (similiarity > pSimilarity) {
+            return 1;
+        } else if(similiarity < pSimilarity) {
+                return -1;
+    } else {
+            return 0;
+        }
+    }
 }
+        

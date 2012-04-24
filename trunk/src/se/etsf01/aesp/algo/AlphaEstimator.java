@@ -50,13 +50,17 @@ public class AlphaEstimator implements Estimator
             //TODO: Check if performance is good enough.
             Project cProj = interm.selectedProjects.get(i);
             double cSim = interm.similarity.get(i); //similarity
+            cProj.setSimilarity(cSim);
             double cEffort = cProj.getActualEffort().toPersonHours();
             double cSize = cProj.getLinesOfCode();
-            
             effort += (size * cSim * cEffort) / (cSize * sumSimilarity);
         }
         
-        EstimationResult result = new EstimationResult(Effort.instantiatePersonHours((float)effort), interm.selectedProjects);
+       
+        ProjectList similarProjects = interm.selectedProjects;
+        Comparator c = Collections.reverseOrder();
+        Collections.sort(similarProjects,c);
+        EstimationResult result = new EstimationResult(Effort.instantiatePersonHours((float)effort), similarProjects);
         return result;
     }
     

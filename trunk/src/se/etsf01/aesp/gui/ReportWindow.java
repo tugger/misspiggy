@@ -7,7 +7,7 @@ package se.etsf01.aesp.gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.text.DecimalFormat;
-import se.etsf01.aesp.algo.Effort;
+import javax.swing.table.DefaultTableModel;
 import se.etsf01.aesp.algo.EstimationResult;
 
 /**
@@ -15,33 +15,30 @@ import se.etsf01.aesp.algo.EstimationResult;
  * @author tugger
  */
 public class ReportWindow extends javax.swing.JFrame {
+
     private EstimationResult result;
+    private DecimalFormat df = new DecimalFormat();
+
     /**
      * Creates new form ReportWindow
      */
     public ReportWindow(EstimationResult result) {
         this.result = result;
         initComponents();
+        setPosition();
         postInit();
     }
-    
+
     private void postInit() {
-        setLocation(300,300);
-        sources.setText("Estimated from " + Integer.toString(result.getAdaptiationSource().size()) + " sources");
-         float effort;
-                if (result.getEstimatedEffort().toPersonYear() < 1) {
-                    if (result.getEstimatedEffort().toPersonMonths() < 1) {
-                        effort = result.getEstimatedEffort().toPersonHours();
-                    } else {
-                        effort = result.getEstimatedEffort().toPersonMonths();
-                    }
-                } else { 
-                    effort = result.getEstimatedEffort().toPersonYear();
-                }
-                DecimalFormat df = new DecimalFormat("#.##");
-        effortLabel.setText(df.format(effort));
+        df.applyPattern("#.###");
+        for (int i = 0; i < result.getAdaptiationSource().size(); i++) {
+            tModel.addRow(new Object[]{i + 1, result.getAdaptiationSource().get(i).getIdentifier(), df.format(result.getAdaptiationSource().get(i).getSimilarity())});
+        }
         
-        
+        sources.setText("Estimated from the following " + Integer.toString(result.getAdaptiationSource().size()) + " sources:");
+        df.applyPattern("#.##");
+        effortLabel.setText("<html>Estimated effort:<br>" + df.format(result.getEstimatedEffort().toPersonMonths()) + " person-months</html>");
+
     }
 
     /**
@@ -55,33 +52,81 @@ public class ReportWindow extends javax.swing.JFrame {
 
         sources = new javax.swing.JLabel();
         effortLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tModel = new DefaultTableModel();
+        projectTable = new javax.swing.JTable(tModel);
+        unitComboBox = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        effortLabel.setText("jLabel1");
+        sources.setText("sources");
+
+        effortLabel.setText("Effort");
+
+        projectTable.setEnabled(false);
+        tModel.addColumn("#");
+        tModel.addColumn("Project Name");
+        tModel.addColumn("Similarity");
+        jScrollPane1.setViewportView(projectTable);
+
+        unitComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Person years", "Person months", "Person days", "Person hours" }));
+        unitComboBox.setSelectedIndex(1);
+        unitComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                unitComboBoxActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("View result in:");
+
+        jButton1.setText("Export");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(sources, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(effortLabel)))
-                .addContainerGap(193, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel1)
+                                    .addComponent(unitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(3, 3, 3)
+                                .addComponent(effortLabel))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton1))))
+                    .addComponent(sources, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(127, 127, 127)
-                .addComponent(effortLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
-                .addComponent(sources)
-                .addGap(34, 34, 34))
+                .addGap(30, 30, 30)
+                .addComponent(sources, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(unitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(72, 72, 72)
+                        .addComponent(effortLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 14, Short.MAX_VALUE)))
+                .addContainerGap(12, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         effortLabel.getAccessibleContext().setAccessibleName("effort");
@@ -89,12 +134,46 @@ public class ReportWindow extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void unitComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_unitComboBoxActionPerformed
+        Object value = unitComboBox.getSelectedIndex();
+        switch ((Integer) value) {
+            case 0:
+                df.applyPattern("#.###");
+                effortLabel.setText("<html>Estimated effort:<br>" + df.format(result.getEstimatedEffort().toPersonYear()) + " person-years</html>");
+                break;
+            case 1:
+                df.applyPattern("#.##");
+                effortLabel.setText("<html>Estimated effort:<br>" + df.format(result.getEstimatedEffort().toPersonMonths()) + " person-months</html>");
+                break;
+            case 2:
+                df.applyPattern("#.##");
+                effortLabel.setText("<html>Estimated effort:<br>" + df.format(result.getEstimatedEffort().toPersonDays()) + " person-days</html>");
+                break;
+            case 3:
+                df.applyPattern("#");
+                effortLabel.setText("<html>Estimated effort:<br>" + df.format(result.getEstimatedEffort().toPersonHours()) + " person-hours</html>");
+        }
+    }//GEN-LAST:event_unitComboBoxActionPerformed
+    
+    private void setPosition() {
+    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+    int w = getSize().width;
+    int h = getSize().height;
+    
+    setLocation((dim.width-w)/2, (dim.height-h)/2);
+    }
     /**
      * @param args the command line arguments
      */
-
+    private DefaultTableModel tModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel effortLabel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable projectTable;
     private javax.swing.JLabel sources;
+    private javax.swing.JComboBox unitComboBox;
     // End of variables declaration//GEN-END:variables
 }
