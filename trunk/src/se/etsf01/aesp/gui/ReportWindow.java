@@ -7,6 +7,7 @@ package se.etsf01.aesp.gui;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.text.DecimalFormat;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import se.etsf01.aesp.algo.EstimationResult;
 
@@ -24,9 +25,15 @@ public class ReportWindow extends javax.swing.JFrame {
      */
     public ReportWindow(EstimationResult result) {
         this.result = result;
-        initComponents();
-        setPosition();
-        postInit();
+        if(result.succeeded()) {
+            initComponents();
+            setPosition();
+            postInit();
+            setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "No estimation could be calculated. \n Please consider your similarity threshold.");
+        }
+        
     }
 
     private void postInit() {
