@@ -33,21 +33,21 @@ public enum Attribute
      * http://promise.site.uottawa.ca/SERepository/datasets/cocomonasa.arff
      */
 
-    RELY("Required software reliability", Rating.LOW     , Rating.VERY_HIGH),
-    DATA("Database size"                , Rating.LOW     , Rating.VERY_HIGH),
-    CPLX("Process complexity"           , Rating.LOW     , Rating.EXTRA_HIGH),
-    TIME("Time constraint for cpu"      , Rating.NOMINAL , Rating.EXTRA_HIGH),
-    STOR("Main memory constraint"       , Rating.NOMINAL , Rating.EXTRA_HIGH),
-    VIRT("Machine volatility"           , Rating.LOW     , Rating.HIGH),
-    TURN("Turnaround time"              , Rating.LOW     , Rating.HIGH),
-    ACAP("Analysts capability"          , Rating.NOMINAL , Rating.VERY_HIGH),
-    AEXP("Application experience"       , Rating.NOMINAL , Rating.VERY_HIGH),
-    PCAP("Programmers capability"       , Rating.NOMINAL , Rating.VERY_HIGH),
-    VEXP("Virtual machine experience"   , Rating.LOW     , Rating.HIGH),
-    LEXP("Language experience"          , Rating.VERY_LOW, Rating.HIGH),
-    MODP("Modern programing practices"  , Rating.LOW     , Rating.VERY_HIGH),
-    TOOL("Use of software tools"        , Rating.VERY_LOW, Rating.VERY_HIGH),
-    SCED("Schedule constraint"          , Rating.LOW     , Rating.HIGH);
+    RELY("Required software reliability", Rating.VERY_LOW, Rating.VERY_HIGH, new double[] { 0.75, 0.88, 1.00, 1.15, 1.40}),
+    DATA("Database size"                , Rating.LOW     , Rating.VERY_HIGH, new double[] {0.94, 1.00, 1.08, 1.16} ),
+    CPLX("Process complexity"           , Rating.VERY_LOW, Rating.EXTRA_HIGH, new double[] {0.70, 0.85, 1.00, 1.15, 1.30, 1.65}),
+    TIME("Time constraint for cpu"      , Rating.NOMINAL , Rating.EXTRA_HIGH, new double[] {1.00, 1.11, 1.30, 1.66}),
+    STOR("Main memory constraint"       , Rating.NOMINAL , Rating.EXTRA_HIGH, new double[] {1.00, 1.06, 1.21, 1.56}),
+    VIRT("Machine volatility"           , Rating.LOW     , Rating.VERY_HIGH, new double[] {0.87, 1.00, 1.15, 1.30} ),
+    TURN("Turnaround time"              , Rating.LOW , Rating.VERY_HIGH, new double[] {0.87, 1.00, 1.07, 1.15}),
+    ACAP("Analysts capability"          , Rating.VERY_LOW, Rating.VERY_HIGH, new double[] {1.46, 1.19, 1.00, 0.86, 0.71}),
+    AEXP("Application experience"       , Rating.VERY_LOW, Rating.VERY_HIGH, new double[] {1.29, 1.13, 1.00, 0.91, 0.82}),
+    PCAP("Programmers capability"       , Rating.VERY_LOW, Rating.VERY_HIGH, new double[] {1.42, 1.17, 1.00, 0.86, 0.70}),
+    VEXP("Virtual machine experience"   , Rating.VERY_LOW, Rating.HIGH, new double[] {1.21, 1.10, 1.00, 0.90}),
+    LEXP("Language experience"          , Rating.VERY_LOW, Rating.HIGH, new double[] {1.14, 1.07, 1.00, 0.95}),
+    MODP("Modern programing practices"  , Rating.VERY_LOW, Rating.VERY_HIGH, new double[] {1.24, 1.10, 1.00, 0.91, 0.82}),
+    TOOL("Use of software tools"        , Rating.VERY_LOW, Rating.VERY_HIGH, new double[] {1.24, 1.10, 1.00, 0.91, 0.83}),
+    SCED("Schedule constraint"          , Rating.VERY_LOW, Rating.HIGH, new double[] {1.23, 1.08, 1.00, 1.04, 1.10});
     
     /**
      * The description of a particular attribute, human readable
@@ -58,6 +58,11 @@ public enum Attribute
      * The minimum rating for the particular attribute
      */
     private final Rating min;
+    
+    /**
+     * Weights for the EAF calculation
+     */
+    private double[] weights;
 
     /**
      * The maximum rating allowed for this multiplier
@@ -73,6 +78,19 @@ public enum Attribute
      */
     public Rating getMin() {
         return min;
+    }
+    
+    /**
+     * Get EAF Weight
+     * @param rating The current rating
+     * @return a factor that gives the weight for this characteristic
+     */
+    public double getWeight(Rating rating) {
+        int index = rating.ordinal() - this.min.ordinal();
+        if(index < 0)
+            throw new RuntimeException("Invalid Rating accepted!");
+        
+        return weights[index];
     }
     
     /**
@@ -92,10 +110,11 @@ public enum Attribute
      * The constructor for the num
      * @param description 
      */
-    private Attribute(String description, Rating min, Rating max) {
+    private Attribute(String description, Rating min, Rating max, double[] weights) {
         this.description = description;
         this.min = min;
         this.max = max;
+        this.weights = weights;
     }
     
     /**

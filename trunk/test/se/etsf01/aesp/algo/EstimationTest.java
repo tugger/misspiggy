@@ -33,10 +33,8 @@ public class EstimationTest {
      * could be changed over time
      * @return default estimator
      */
-    private Estimator createDefaultEstimator()
-    {
-        ProjectList list = loadTraingset();
-        
+    private Estimator createDefaultEstimator(ProjectList list)
+    {   
         EstimationFactory factory = new EstimationFactory(list);
         Estimator estim = factory.createEstimator();
         assertNotNull(estim);
@@ -46,21 +44,23 @@ public class EstimationTest {
     @Test
     public void testEstimatorAccuracy()
     {
-        double similarity = 0.7;
+        double similarity = 0.91;
         ProjectList trainginset = loadTraingset();
-        
-        Estimator estim = createDefaultEstimator();
         
         ArrayList<EstimationResult> results = new ArrayList<EstimationResult>();
         
         //TODO: Might not be the fastest way to do it, but it is simple.
         ProjectList testList = new ProjectList();
         for(int i = 0; i < trainginset.size(); i++) {
+            testList.clear();
             testList.addAll(trainginset);
             testList.remove(i);
             
+            Estimator estim = createDefaultEstimator(testList);
+            
             EstimationResult result = estim.estimate(similarity, trainginset.get(i));
             assertNotNull(result);
+            assertNotNull(result.getEstimatedEffort());
             results.add(result);
         }
         
@@ -75,13 +75,18 @@ public class EstimationTest {
             float act_ph = trainginset.get(i).getActualEffort().toPersonHours();
             float relerror = (ph - act_ph) / act_ph;
             
-            if(Math.abs(relerror) < 0.3)
+            if(Math.abs(relerror) <= 0.3)
                 numWithinTolerance++;
             
             String pmEffort = String.valueOf(results.get(i).getEstimatedEffort().toPersonMonths());
             
-            System.out.println("Estimated Project " + String.valueOf(i) + ": " + 
-                    String.valueOf(Math.round(relerror*10000.0f) / 100.0f) + "% ( " + pmEffort + " pm)");
+            System.out.println("Estimated Project " + String.valueOf(i+1) + ": " + 
+                    String.valueOf(Math.round(relerror*10000.0f) / 100.0f) + "% ( " + pmEffort + " pm) based on " +
+                    String.valueOf(results.get(i).getAdaptiationSource().size()) + " projects");
+            
+            if(results.get(i).getAdaptiationSource().size() == 1) {
+                System.out.println("Based on: " + String.valueOf(results.get(i).getAdaptiationSource().get(0)));
+            }
             
             System.out.println(trainginset.get(i));
         }
