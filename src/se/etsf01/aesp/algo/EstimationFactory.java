@@ -29,7 +29,7 @@ public class EstimationFactory
      */
     public Estimator createEstimator()
     {
-        return createEstimator("alpha");
+        return createEstimator("beta");
     }
     
     /**
@@ -43,6 +43,8 @@ public class EstimationFactory
             return createNullEstimator();
         else if(name.equals("alpha"))
             return createAlphaEstimator();
+        else if(name.equals("beta"))
+            return createBetaEstimator();
         else
             return null;
     }
@@ -55,11 +57,14 @@ public class EstimationFactory
         return new AlphaEstimator(list);
     }
     
+    private Estimator createBetaEstimator() {
+        return new BetaEstimator(list);
+    }
     /**
      * Get the list of all estimators available
      * @return list of available esimators
      */
     public String[] getIdentifiers() {
-        return new String[] {"default", "alpha"};
+        return new String[] {"default", "alpha", "beta"};
     }
 }
