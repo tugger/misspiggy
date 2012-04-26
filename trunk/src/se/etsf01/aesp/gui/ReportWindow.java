@@ -6,8 +6,11 @@ package se.etsf01.aesp.gui;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.File;
 import java.text.DecimalFormat;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
 import se.etsf01.aesp.algo.EstimationResult;
 
@@ -64,7 +67,7 @@ public class ReportWindow extends javax.swing.JFrame {
         projectTable = new javax.swing.JTable(tModel);
         unitComboBox = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnExport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,7 +91,12 @@ public class ReportWindow extends javax.swing.JFrame {
 
         jLabel1.setText("View result in:");
 
-        jButton1.setText("Export");
+        btnExport.setText("Export");
+        btnExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -110,7 +118,7 @@ public class ReportWindow extends javax.swing.JFrame {
                                 .addComponent(effortLabel))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))))
+                                .addComponent(btnExport))))
                     .addComponent(sources, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -128,8 +136,8 @@ public class ReportWindow extends javax.swing.JFrame {
                         .addComponent(unitComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(72, 72, 72)
                         .addComponent(effortLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                        .addComponent(btnExport))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 14, Short.MAX_VALUE)))
@@ -161,6 +169,14 @@ public class ReportWindow extends javax.swing.JFrame {
                 effortLabel.setText("<html>Estimated effort:<br>" + df.format(result.getEstimatedEffort().toPersonHours()) + " person-hours</html>");
         }
     }//GEN-LAST:event_unitComboBoxActionPerformed
+
+    private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
+        JFileChooser choose = new JFileChooser();
+        choose.setDialogTitle("Save HTML Report");
+        if(choose.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+            System.out.println("Save to " + choose.getSelectedFile().getAbsolutePath());
+        }
+    }//GEN-LAST:event_btnExportActionPerformed
     
     private void setPosition() {
     Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -175,8 +191,8 @@ public class ReportWindow extends javax.swing.JFrame {
      */
     private DefaultTableModel tModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnExport;
     private javax.swing.JLabel effortLabel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable projectTable;
