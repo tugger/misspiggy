@@ -44,7 +44,6 @@ public class ExportProject {
         Element root = doc.createElement("project");
         root.setAttribute("identifier", project.getIdentifier());
         root.setAttribute("linesOfCode", Integer.toString(project.getLinesOfCode()));
-        root.setAttribute("similarity", Double.toString(project.getSimilarity()));
         doc.appendChild(root);
         
         Map<Attribute,Rating> attributes = project.attributes();
@@ -52,7 +51,9 @@ public class ExportProject {
         for (Attribute attr: attributes.keySet())
         {
             Element attribute = doc.createElement("attribute");
-            attribute.setAttribute(attr.getDescription(), attributes.get(attr).toString());
+            attribute.setAttribute("name", attr.name());
+            attribute.setAttribute("value", attributes.get(attr).toString());
+            root.appendChild(attribute);
         }
 
         return doc;
