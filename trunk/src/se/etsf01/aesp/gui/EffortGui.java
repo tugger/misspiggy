@@ -19,6 +19,8 @@ import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import se.etsf01.aesp.ExportProject;
 import se.etsf01.aesp.algo.*;
 
 /*
@@ -95,6 +97,8 @@ public class EffortGui extends javax.swing.JFrame {
         mnuBar = new javax.swing.JMenuBar();
         mnuDatabase = new javax.swing.JMenu();
         mnuOpenDatabase = new javax.swing.JMenuItem();
+        mnuProject = new javax.swing.JMenu();
+        mnuExportProject = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AESP Tool v1");
@@ -234,6 +238,18 @@ public class EffortGui extends javax.swing.JFrame {
 
         mnuBar.add(mnuDatabase);
 
+        mnuProject.setText("Project");
+
+        mnuExportProject.setText("Export Project...");
+        mnuExportProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuExportProjectPerformed(evt);
+            }
+        });
+        mnuProject.add(mnuExportProject);
+
+        mnuBar.add(mnuProject);
+
         setJMenuBar(mnuBar);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -271,7 +287,7 @@ public class EffortGui extends javax.swing.JFrame {
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel3)
                                     .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                                        .add(org.jdesktop.layout.GroupLayout.LEADING, CPLX, 0, 0, Short.MAX_VALUE)
+                                        .add(org.jdesktop.layout.GroupLayout.LEADING, CPLX, 0, 1, Short.MAX_VALUE)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, TURN, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .add(org.jdesktop.layout.GroupLayout.LEADING, MODP, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .add(jLabel8)
@@ -301,8 +317,8 @@ public class EffortGui extends javax.swing.JFrame {
                         .add(jLabel6)
                         .add(jLabel10)
                         .add(jLabel5)
-                        .add(AEXP, 0, 0, Short.MAX_VALUE)
-                        .add(STOR, 0, 0, Short.MAX_VALUE)
+                        .add(AEXP, 0, 1, Short.MAX_VALUE)
+                        .add(STOR, 0, 1, Short.MAX_VALUE)
                         .add(SCED, 0, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(LOC)))
                 .add(35, 35, 35))
@@ -391,7 +407,7 @@ public class EffortGui extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private Project createProject() {
         //To get attributes use the follwing line as a template.
         Project proj = new Project();
         Field[] fields = this.getClass().getDeclaredFields();
@@ -417,9 +433,16 @@ public class EffortGui extends javax.swing.JFrame {
             proj.setLinesOfCode(Math.round(linesOfCode * 1000.0f));
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid Lines of Code value, check that field!", "AESP Tool", JOptionPane.ERROR_MESSAGE);
-            return;
+            return null;
         }
+        
+        return proj;
+    }
+    
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
+        Project proj = createProject();
+        
         System.out.println(proj);
 
         //If you want to run with the database from the config file
@@ -460,22 +483,11 @@ public class EffortGui extends javax.swing.JFrame {
 
     private void mnuOpenDatabaseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuOpenDatabaseActionPerformed
         JFileChooser chooser = new JFileChooser();
-
-        chooser.setFileFilter(new FileFilter() {
-            @Override
-            public boolean accept(File file) {
-                if (file.getAbsolutePath().toLowerCase().endsWith(".txt")) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
-
-            @Override
-            public String getDescription() {
-                return "Project Datbase Format (*.txt)";
-            }
-        });
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
+        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Project Database Format files (*.txt)", "txt");
+        chooser.setFileFilter(filter);
 
         chooser.setApproveButtonText("Open");
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -531,6 +543,23 @@ public class EffortGui extends javax.swing.JFrame {
     private void LOCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LOCActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_LOCActionPerformed
+
+    private void mnuExportProjectPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportProjectPerformed
+        JFileChooser chooser = new JFileChooser();
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
+        
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Project files (*.prj)", "prj");
+        chooser.setFileFilter(filter);
+
+        chooser.setApproveButtonText("Export");
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            String path = chooser.getSelectedFile().getAbsolutePath();
+            ExportProject ep = new ExportProject(path, createProject());
+            ep.export();
+            JOptionPane.showMessageDialog(this, "Exported project to " + path + ".", "Export complete.", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }//GEN-LAST:event_mnuExportProjectPerformed
 
       private void setPosition() {
         // Get the size of the screen
@@ -625,7 +654,9 @@ public class EffortGui extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JMenuBar mnuBar;
     private javax.swing.JMenu mnuDatabase;
+    private javax.swing.JMenuItem mnuExportProject;
     private javax.swing.JMenuItem mnuOpenDatabase;
+    private javax.swing.JMenu mnuProject;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }
