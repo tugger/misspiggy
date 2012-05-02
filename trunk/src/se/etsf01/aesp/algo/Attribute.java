@@ -63,7 +63,7 @@ public enum Attribute
      * Weights for the EAF calculation
      */
     private double[] weights;
-
+    
     /**
      * The maximum rating allowed for this multiplier
      * @return a rating of the maximum
@@ -80,6 +80,17 @@ public enum Attribute
         return min;
     }
     
+    private double minWeight;
+
+    public double getMaxWeight() {
+        return maxWeight;
+    }
+
+    public double getMinWeight() {
+        return minWeight;
+    }
+    private double maxWeight;
+    
     /**
      * Get EAF Weight
      * @param rating The current rating
@@ -92,7 +103,21 @@ public enum Attribute
         
         return weights[index];
     }
-    
+   
+    private double[] getMinMaxWeight() {
+        double min = Double.MAX_VALUE;
+        double max = Double.MIN_VALUE;
+        
+        for(int i = 0; i < weights.length; i++) {
+            if(weights[i] < min)
+                min = weights[i];
+             
+            if(weights[i] > max)
+                max = weights[i];
+        }
+        
+        return new double[] {min, max};
+    }
     /**
      * The maximum rating for a particular attribute
      */
@@ -115,6 +140,9 @@ public enum Attribute
         this.min = min;
         this.max = max;
         this.weights = weights;
+        double[] minmax = getMinMaxWeight();
+        this.minWeight = minmax[0];
+        this.maxWeight = minmax[1];
     }
     
     /**
