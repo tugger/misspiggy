@@ -44,7 +44,7 @@ public class AlphaEstimator implements Estimator
         //Compute sum of similarity values
         for(double value : interm.similarity)
         {
-            sumSimilarity += value;
+            sumSimilarity += value * value;
         }
         
         for(int i = 0; i < interm.selectedProjects.size(); i++)
@@ -55,7 +55,8 @@ public class AlphaEstimator implements Estimator
             cProj.setSimilarity(cSim);
             double cEffort = cProj.getActualEffort().toPersonHours();
             double cSize = cProj.getLinesOfCode();
-            effort += (size * cSim * cEffort) / (cSize * sumSimilarity);
+            
+            effort += (size / cSize) * cEffort * (Math.pow(cSim,2) / sumSimilarity);
         }
         
        
@@ -75,16 +76,28 @@ public class AlphaEstimator implements Estimator
     private Intermediate getSimilarProjects(double similarityThreshold, Project proj) {
         Intermediate interm = new Intermediate();
         interm.proj = proj;
+        
+        TreeMap<Double,Project> similarities = new TreeMap<Double, Project>();
+        
         for(Project cProj : projectlist)
         {
             //calculate similarity between the two
             double similarity = similarityCalculator.calculateSimilarity(proj, cProj);
-            //If similarity is larger then threshold add to the collection
-            if(similarity >= similarityThreshold){
-                interm.selectedProjects.add(cProj);
-                interm.similarity.add(similarity);
+            similarities.put(similarity, cProj);
+        }
+        
+        Iterator<Map.Entry<Double,Project>> iter = similarities.descendingMap().entrySet().iterator();
+        if(iter.hasNext()) {
+            while(iter.hasNext() && interm.selectedProjects.size() < 15) {
+                Map.Entry<Double,Project> entry = iter.next();
+                if(entry.getKey() < similarityThreshold)
+                    break;
+                
+                interm.selectedProjects.add(entry.getValue());
+                interm.similarity.add(entry.getKey());
             }
         }
+        
         return interm;
     }
     

@@ -20,6 +20,10 @@ public class EstimationResult
     private ProjectList adaptiationSource;
 
     /**
+     * Message from the estimator
+     */
+    private String estimationReport;
+    /**
      * Get the adaption source i.e. the similar projects used to compute estimated effort
      * @return adaption source as a project list, null if adaptation failed
      */
@@ -47,10 +51,23 @@ public class EstimationResult
      * Construct the estimation result
      * @param estimatedEffort the estimated effort
      * @param adapationSource the similiar projects used to adapt the effort
+     * @param message message about the esimtation such as parameters used and such.
+     */
+    public EstimationResult(Effort estimatedEffort, ProjectList adapationSource, String message) {
+        this.estimatedEffort = estimatedEffort;
+        this.adaptiationSource = adapationSource;
+        this.estimationReport = message;
+    }
+    
+    /**
+     * Construct the estimation result
+     * @param estimatedEffort the estimated effort
+     * @param adapationSource the similiar projects used to adapt the effort
      */
     public EstimationResult(Effort estimatedEffort, ProjectList adapationSource) {
         this.estimatedEffort = estimatedEffort;
         this.adaptiationSource = adapationSource;
+        this.estimationReport = "Nothing to report.";
     }
     
     public EstimationResult() {
