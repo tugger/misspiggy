@@ -31,7 +31,7 @@ public class BetaEstimator implements Estimator {
     }
     
     /**
-     * Compute the EAF factor
+     * Compute the EAF factor, derived from COCOMO 81
      * @param proj the project
      * @return eaf factor
      */
@@ -75,6 +75,7 @@ public class BetaEstimator implements Estimator {
         for(i = 0; i < lastError.length; i++)
             lastError[i] = Double.POSITIVE_INFINITY;
         
+        //1.c find the best a nad b for all project that are similar
         i = 0;
         for(Project proj : interm.selectedProjects) {
             double act = proj.getActualEffort().toPersonMonths();
@@ -85,6 +86,7 @@ public class BetaEstimator implements Estimator {
                     double est = a*Math.pow(proj.getLinesOfCode()/1000.0,b)*eafFactors[i];
                     double e = (est - act) / act;
                     
+                    //If the error is less than before it is a better a and b
                     if(Math.abs(e) < Math.abs(lastError[i]))
                     {
                         bestA[i] = a;
@@ -114,6 +116,7 @@ public class BetaEstimator implements Estimator {
             b += bestB[i] * (Math.pow(interm.similarity.get(i),2) / sumSimilarity);
         }
         
+        //The final calculation.
         double effort = a * Math.pow(interm.proj.getLinesOfCode() / 1000.0, b) * eaf(interm.proj);
         
         ProjectList similarProjects = interm.selectedProjects;
@@ -141,6 +144,7 @@ public class BetaEstimator implements Estimator {
             double similarity = similarityCalculator.calculateSimilarity(proj, cProj);
             similarities.put(similarity, cProj);
         }
+        
         
         Iterator<Map.Entry<Double,Project>> iter = similarities.descendingMap().entrySet().iterator();
         if(iter.hasNext()) {

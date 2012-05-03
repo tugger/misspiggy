@@ -59,7 +59,8 @@ public class AlphaEstimator implements Estimator
             effort += (size / cSize) * cEffort * (Math.pow(cSim,2) / sumSimilarity);
         }
         
-       
+        effort /= interm.selectedProjects.size();
+        
         ProjectList similarProjects = interm.selectedProjects;
         Comparator c = Collections.reverseOrder();
         Collections.sort(similarProjects,c);

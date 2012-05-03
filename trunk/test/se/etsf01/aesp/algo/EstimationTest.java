@@ -50,6 +50,7 @@ public class EstimationTest {
         ArrayList<EstimationResult> results = new ArrayList<EstimationResult>();
         
         //TODO: Might not be the fastest way to do it, but it is simple.
+        //This part removes one project from the testing list and computes the estimate
         ProjectList testList = new ProjectList();
         for(int i = 0; i < trainginset.size(); i++) {
             testList.clear();
@@ -76,6 +77,7 @@ public class EstimationTest {
                 continue;
             }
             
+            //Calculate the error
             float ph = results.get(i).getEstimatedEffort().toPersonHours();
             float act_ph = trainginset.get(i).getActualEffort().toPersonHours();
             float relerror = (ph - act_ph) / act_ph;
@@ -85,6 +87,7 @@ public class EstimationTest {
             
             String pmEffort = String.valueOf(results.get(i).getEstimatedEffort().toPersonMonths());
             
+            //Some status prinout
             System.out.println("Estimated Project " + String.valueOf(i+1) + ": " + 
                     String.valueOf(Math.round(relerror*10000.0f) / 100.0f) + "% ( " + pmEffort + " pm) based on " +
                     String.valueOf(results.get(i).getAdaptiationSource().size()) + " projects");
@@ -96,6 +99,7 @@ public class EstimationTest {
             System.out.println(trainginset.get(i));
         }
         
+        //Verifiy if we have meet the requirements
         System.out.println(String.valueOf(numWithinTolerance) + "/" + String.valueOf(results.size()) + " are within tolerance.");
         if(numWithinTolerance / (float)results.size() <= 0.8f){
             float percent = Math.round((numWithinTolerance / (float)results.size()) * 1000.0f) / 10.0f;
