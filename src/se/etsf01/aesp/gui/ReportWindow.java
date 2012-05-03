@@ -12,7 +12,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.table.DefaultTableModel;
-import se.etsf01.aesp.algo.EstimationResult;
+import se.etsf01.aesp.*;
+import se.etsf01.aesp.algo.*;
 
 /**
  *
@@ -21,13 +22,15 @@ import se.etsf01.aesp.algo.EstimationResult;
 public class ReportWindow extends javax.swing.JFrame {
 
     private EstimationResult result;
+    private Project proj;
     private DecimalFormat df = new DecimalFormat();
 
     /**
      * Creates new form ReportWindow
      */
-    public ReportWindow(EstimationResult result) {
+    public ReportWindow(Project proj, EstimationResult result) {
         this.result = result;
+        this.proj = proj;
         if(result.succeeded()) {
             initComponents();
             setPosition();
@@ -174,7 +177,14 @@ public class ReportWindow extends javax.swing.JFrame {
         JFileChooser choose = new JFileChooser();
         choose.setDialogTitle("Save HTML Report");
         if(choose.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            System.out.println("Save to " + choose.getSelectedFile().getAbsolutePath());
+            ExportHTML exporter = new ExportHTML(choose.getSelectedFile().getAbsolutePath(), proj, result);
+            if(exporter.export()) {
+                JOptionPane.showMessageDialog(this, "Successfull export!", "Export to HTML", JOptionPane.INFORMATION_MESSAGE);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(this, "Failed to export.", "Export to HTML", JOptionPane.ERROR_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnExportActionPerformed
     

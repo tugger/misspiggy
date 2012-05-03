@@ -14,7 +14,7 @@ import se.etsf01.aesp.ExportHTML;
 public class HTMLExportTest {
     @Test
     public void testExport() {
-        ExportHTML html = new ExportHTML("test.html", null);
+        ExportHTML html = new ExportHTML("test.html", null, null);
         html.export();
     }
 }
