@@ -43,9 +43,9 @@ public class ReportWindow extends javax.swing.JFrame {
     }
 
     private void postInit() {
-        df.applyPattern("#.###");
+        df.applyPattern("0.00");
         for (int i = 0; i < result.getAdaptiationSource().size(); i++) {
-            tModel.addRow(new Object[]{i + 1, result.getAdaptiationSource().get(i).getIdentifier(), df.format(result.getAdaptiationSource().get(i).getSimilarity())});
+            tModel.addRow(new Object[]{i + 1, result.getAdaptiationSource().get(i).getIdentifier(), df.format(result.getAdaptiationSource().get(i).getSimilarity()*100.0) + "%"});
         }
         
         sources.setText("Estimated from the following " + Integer.toString(result.getAdaptiationSource().size()) + " sources:");
@@ -73,6 +73,7 @@ public class ReportWindow extends javax.swing.JFrame {
         btnExport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Estimation Report");
 
         sources.setText("sources");
 

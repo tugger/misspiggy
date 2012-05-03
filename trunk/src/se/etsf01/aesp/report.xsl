@@ -6,6 +6,49 @@
         <html>
             <head>
                 <title>Estimation Report</title>
+                <style type="text/css">
+                    body {
+                        padding:0px;
+                        margin:0pt;
+                        font-family:Tahoma,Serif;
+                        font-size:12pt;
+                    }
+                    
+                    h2 {
+                        font-size:22pt;
+                        margin: 5pt;
+                        font-weight:bold;
+                        margin-bottom:10pt;
+                        border-bottom: 1px solid #000000;
+                    }
+                    
+                    h3 {
+                        font-size:16pt;
+                        font-weight:bold;
+                        margin: 5pt;
+                        margin-bottom:10pt;
+                    }
+                    
+                    p {
+                        font-size:12pt;
+                        margin:5pt;
+                    }
+                    
+                    table
+                    {
+                        border-collapse:collapse;
+                        margin:5pt;
+                    }
+                    table, td, th
+                    {
+                        border:1px solid black;
+                        padding:3pt;
+                    }
+                    
+                    th {
+                        font-weight:bold;
+                    }
+                </style>
             </head>
             <body>
                 <h2>Estimation Result</h2>
@@ -13,10 +56,10 @@
                 <h3>Notes:</h3>
                 <p><xsl:value-of select="project/effort/notes"/></p>
                 <h2>Estimation Basis:</h2>
-                <table>
+                <table id="project">
                     <tr>
-                        <td><strong>Type</strong></td>
-                        <td><strong>Value</strong></td>
+                        <th>Type</th>
+                        <th>Value</th>
                     </tr>
                     <xsl:for-each select="project/characteristic">
                         <tr>
@@ -30,14 +73,14 @@
                     </tr>
                 </table>
                 <h2>Similar projects</h2>
-                <table>
+                <table id="similiar">
                     <tr>
-                        <td>#</td>
-                        <td>Similarity</td>
-                        <td>Size (kLOC)</td>
-                        <td>Actual Effort</td>
+                        <th>#</th>
+                        <th>Similarity</th>
+                        <th>Size (kLOC)</th>
+                        <th>Actual Effort</th>
                         <xsl:for-each select="similar/characteristics/item">
-                            <td><xsl:value-of select="@name" /></td>
+                            <th><xsl:value-of select="@name" /></th>
                         </xsl:for-each>
                     </tr>
                     <xsl:for-each select="similar/project">
