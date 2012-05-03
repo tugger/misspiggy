@@ -464,7 +464,7 @@ public class EffortGui extends javax.swing.JFrame {
         }
         //TODO: Might not be the fastest way to do it, but it is simple.
         EstimationResult result = estim.estimate(SimThreshold.getValue() / 100.0, proj);
-        ReportWindow rp = new ReportWindow(result);
+        ReportWindow rp = new ReportWindow(proj, result);
         
 
     }//GEN-LAST:event_jButton1ActionPerformed

@@ -114,6 +114,7 @@ public class BetaEstimator implements Estimator {
         {
             a += bestA[i] * (Math.pow(interm.similarity.get(i),2) / sumSimilarity);
             b += bestB[i] * (Math.pow(interm.similarity.get(i),2) / sumSimilarity);
+            interm.selectedProjects.get(i).setSimilarity(interm.similarity.get(i));
         }
         
         //The final calculation.

@@ -23,6 +23,7 @@ public class EstimationResult
      * Message from the estimator
      */
     private String estimationReport;
+    
     /**
      * Get the adaption source i.e. the similar projects used to compute estimated effort
      * @return adaption source as a project list, null if adaptation failed
@@ -68,6 +69,10 @@ public class EstimationResult
         this.estimatedEffort = estimatedEffort;
         this.adaptiationSource = adapationSource;
         this.estimationReport = "Nothing to report.";
+    }
+    
+    public String getMessage() {
+        return this.estimationReport;
     }
     
     public EstimationResult() {
