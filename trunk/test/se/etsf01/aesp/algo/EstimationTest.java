@@ -97,7 +97,7 @@ public class EstimationTest {
         }
         
         System.out.println(String.valueOf(numWithinTolerance) + "/" + String.valueOf(results.size()) + " are within tolerance.");
-        if(numWithinTolerance / (float)results.size() < 0.8f){
+        if(numWithinTolerance / (float)results.size() <= 0.8f){
             float percent = Math.round((numWithinTolerance / (float)results.size()) * 1000.0f) / 10.0f;
             fail("Estimation not good enough! " + String.valueOf(percent) + "% are within tolerance");
         }
