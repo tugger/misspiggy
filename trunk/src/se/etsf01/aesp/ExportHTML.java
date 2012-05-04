@@ -101,6 +101,7 @@ public class ExportHTML {
         for(Project sproj : result.getAdaptiationSource())
         {
             Element simproject = doc.createElement("project");
+            simproject.setAttribute("name", sproj.getIdentifier());
             simproject.setAttribute("number", String.valueOf(i));
             simproject.setAttribute("similarity", String.valueOf(Math.round(sproj.getSimilarity() * 1000.0)/10.0));
             simproject.setAttribute("size", String.valueOf(sproj.getLinesOfCode() / 1000.0));

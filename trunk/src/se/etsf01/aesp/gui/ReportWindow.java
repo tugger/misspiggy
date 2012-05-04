@@ -4,13 +4,14 @@
  */
 package se.etsf01.aesp.gui;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.FilterGenerator;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
 import java.text.DecimalFormat;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.*;
 import javax.swing.table.DefaultTableModel;
 import se.etsf01.aesp.*;
 import se.etsf01.aesp.algo.*;
@@ -177,8 +178,34 @@ public class ReportWindow extends javax.swing.JFrame {
     private void btnExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportActionPerformed
         JFileChooser choose = new JFileChooser();
         choose.setDialogTitle("Save HTML Report");
+        FileFilter ff = new FileFilter() {
+
+            @Override
+            public boolean accept(File file) {
+                if(file.getAbsolutePath().toLowerCase().endsWith("html"))
+                {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+            @Override
+            public String getDescription() {
+                return "HTML files (*.html)";
+            }
+        };
+        
+        choose.setFileFilter(ff);
+                
         if(choose.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            ExportHTML exporter = new ExportHTML(choose.getSelectedFile().getAbsolutePath(), proj, result);
+            String path = choose.getSelectedFile().getAbsolutePath();
+            if (path.indexOf('.')==-1) {
+                path += ".html";
+            }
+            
+            ExportHTML exporter = new ExportHTML(path, proj, result);
             if(exporter.export()) {
                 JOptionPane.showMessageDialog(this, "Successfull export!", "Export to HTML", JOptionPane.INFORMATION_MESSAGE);
             }

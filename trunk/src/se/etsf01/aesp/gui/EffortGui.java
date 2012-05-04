@@ -140,9 +140,34 @@ public class EffortGui extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Similarity Threshold"));
 
+        SimThreshold.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                SimThresholdStateChanged(evt);
+            }
+        });
+        SimThreshold.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+                SimThresholdCaretPositionChanged(evt);
+            }
+        });
+
+        jTextField1.setText("50");
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextField1KeyTyped(evt);
+            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextField1KeyReleased(evt);
             }
         });
 
@@ -541,7 +566,18 @@ public class EffortGui extends javax.swing.JFrame {
     }//GEN-LAST:event_TOOLActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
+         try {
+            int number = Integer.parseInt(jTextField1.getText());
+            if(number < 0)
+                number = 0;
+            else if(number > 100)
+                number = 100;
+            
+            SimThreshold.setValue(number);
+        }
+        catch(NumberFormatException ex) {
+            
+        }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private Project createProject() {
@@ -702,6 +738,37 @@ public class EffortGui extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Exported project to " + path + ".", "Export complete.", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_mnuExportProjectPerformed
+
+    private void SimThresholdCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_SimThresholdCaretPositionChanged
+        jTextField1.setText(String.valueOf(SimThreshold.getValue()));
+    }//GEN-LAST:event_SimThresholdCaretPositionChanged
+
+    private void SimThresholdStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_SimThresholdStateChanged
+        jTextField1.setText(String.valueOf(SimThreshold.getValue()));
+    }//GEN-LAST:event_SimThresholdStateChanged
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+
+    }//GEN-LAST:event_jTextField1KeyPressed
+
+    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+
+    }//GEN-LAST:event_jTextField1KeyTyped
+
+    private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
+        try {
+            int number = Integer.parseInt(jTextField1.getText());
+            if(number < 0)
+                number = 0;
+            else if(number > 100)
+                number = 100;
+            
+            SimThreshold.setValue(number);
+        }
+        catch(NumberFormatException ex) {
+            
+        }
+    }//GEN-LAST:event_jTextField1KeyReleased
 
       private void setPosition() {
         // Get the size of the screen
