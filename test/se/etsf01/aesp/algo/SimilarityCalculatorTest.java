@@ -54,7 +54,7 @@ public class SimilarityCalculatorTest {
         secondProj.attributes().clear();
         
         //Distance 1, similarity 0
-        firstProj.attributes().put(Attribute.RELY, Rating.LOW);
+        firstProj.attributes().put(Attribute.RELY, Rating.VERY_LOW);
         secondProj.attributes().put(Attribute.RELY, Rating.VERY_HIGH);
         expResult = 0.0;
         result = instance.calculateSimilarity(firstProj, secondProj);

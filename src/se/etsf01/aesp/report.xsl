@@ -87,6 +87,7 @@
                         <tr>
                         <td><xsl:value-of select="@number" /></td>
                         <td><xsl:value-of select="@similarity" />%</td>
+                        <td><xsl:value-of select="@name" /></td>
                         <td><xsl:value-of select="@size" /></td>
                         <td><xsl:value-of select="@effort" /> pm</td>
                         <xsl:for-each select="characteristic">
