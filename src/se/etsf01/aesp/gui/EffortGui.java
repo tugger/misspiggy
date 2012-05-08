@@ -787,7 +787,6 @@ public class EffortGui extends javax.swing.JFrame {
             String path = chooser.getSelectedFile().getAbsolutePath();
             ImportProject ip = new ImportProject();
             proj = ip.importProj(path);
-            // JOptionPane.showMessageDialog(this, "Exported project to " + path + ".", "Export complete.", JOptionPane.INFORMATION_MESSAGE);
         }
         Field[] fields = this.getClass().getDeclaredFields();
         HashMap<String, Attribute> attributes = new HashMap<String, Attribute>();
