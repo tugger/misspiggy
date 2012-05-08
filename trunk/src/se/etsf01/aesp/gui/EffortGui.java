@@ -22,11 +22,12 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import se.etsf01.aesp.ExportProject;
+import se.etsf01.aesp.ImportProject;
 import se.etsf01.aesp.algo.*;
 
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * To change this template, choose Tools | Templates and open the template in
+ * the editor.
  */
 /**
  *
@@ -36,9 +37,8 @@ public class EffortGui extends javax.swing.JFrame {
 
     private ProjectList projectlist;
     String path;
-
     private HashMap<Attribute, DefaultComboBoxModel> comboModels;
-    
+
     /**
      * Creates new form EffortGui
      */
@@ -50,16 +50,16 @@ public class EffortGui extends javax.swing.JFrame {
         setVisible(true);
 
     }
-    
-        public void fixBoxes() {
+
+    public void fixBoxes() {
         comboModels = new HashMap<Attribute, DefaultComboBoxModel>();
         for (Attribute attr : Attribute.values()) {
             int min = attr.getMin().ordinal();
             int max = attr.getMax().ordinal();
             Rating[] rating = Rating.values();
-            String[] choices = new String[max-min+1];
+            String[] choices = new String[max - min + 1];
 
-            for(int i = min, j = 0; i <= max; i++, j++) {
+            for (int i = min, j = 0; i <= max; i++, j++) {
                 choices[j] = rating[i].toString();
             }
 
@@ -117,6 +117,7 @@ public class EffortGui extends javax.swing.JFrame {
         mnuOpenDatabase = new javax.swing.JMenuItem();
         mnuProject = new javax.swing.JMenu();
         mnuExportProject = new javax.swing.JMenuItem();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AESP Tool v1");
@@ -146,10 +147,10 @@ public class EffortGui extends javax.swing.JFrame {
             }
         });
         SimThreshold.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 SimThresholdCaretPositionChanged(evt);
+            }
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -206,7 +207,7 @@ public class EffortGui extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(RELY, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 21, Short.MAX_VALUE))
+                .add(0, 35, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel3);
@@ -220,7 +221,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(DATA, 0, 176, Short.MAX_VALUE)
+            .add(DATA, 0, 180, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -238,7 +239,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(CPLX, 0, 176, Short.MAX_VALUE)
+            .add(CPLX, 0, 180, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -261,7 +262,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(TIME, 0, 176, Short.MAX_VALUE)
+            .add(TIME, 0, 180, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -279,7 +280,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(STOR, 0, 176, Short.MAX_VALUE)
+            .add(STOR, 0, 180, Short.MAX_VALUE)
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -302,7 +303,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(VIRT, 0, 176, Short.MAX_VALUE)
+            .add(VIRT, 0, 180, Short.MAX_VALUE)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -320,7 +321,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(TURN, 0, 176, Short.MAX_VALUE)
+            .add(TURN, 0, 180, Short.MAX_VALUE)
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -338,7 +339,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(ACAP, 0, 176, Short.MAX_VALUE)
+            .add(ACAP, 0, 180, Short.MAX_VALUE)
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -356,13 +357,13 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(MODP, 0, 176, Short.MAX_VALUE)
+            .add(MODP, 0, 180, Short.MAX_VALUE)
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel11Layout.createSequentialGroup()
                 .add(MODP, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 21, Short.MAX_VALUE))
+                .add(0, 35, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel11);
@@ -376,7 +377,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(AEXP, 0, 176, Short.MAX_VALUE)
+            .add(AEXP, 0, 180, Short.MAX_VALUE)
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -399,7 +400,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel13.setLayout(jPanel13Layout);
         jPanel13Layout.setHorizontalGroup(
             jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(VEXP, 0, 176, Short.MAX_VALUE)
+            .add(VEXP, 0, 180, Short.MAX_VALUE)
         );
         jPanel13Layout.setVerticalGroup(
             jPanel13Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -417,7 +418,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel14.setLayout(jPanel14Layout);
         jPanel14Layout.setHorizontalGroup(
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(LEXP, 0, 176, Short.MAX_VALUE)
+            .add(LEXP, 0, 180, Short.MAX_VALUE)
         );
         jPanel14Layout.setVerticalGroup(
             jPanel14Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -440,13 +441,13 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel15.setLayout(jPanel15Layout);
         jPanel15Layout.setHorizontalGroup(
             jPanel15Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(PCAP, 0, 176, Short.MAX_VALUE)
+            .add(PCAP, 0, 180, Short.MAX_VALUE)
         );
         jPanel15Layout.setVerticalGroup(
             jPanel15Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel15Layout.createSequentialGroup()
                 .add(PCAP, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 21, Short.MAX_VALUE))
+                .add(0, 35, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel15);
@@ -465,7 +466,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel16.setLayout(jPanel16Layout);
         jPanel16Layout.setHorizontalGroup(
             jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(TOOL, 0, 176, Short.MAX_VALUE)
+            .add(TOOL, 0, 180, Short.MAX_VALUE)
         );
         jPanel16Layout.setVerticalGroup(
             jPanel16Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -483,7 +484,7 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel17.setLayout(jPanel17Layout);
         jPanel17Layout.setHorizontalGroup(
             jPanel17Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(SCED, 0, 176, Short.MAX_VALUE)
+            .add(SCED, 0, 180, Short.MAX_VALUE)
         );
         jPanel17Layout.setVerticalGroup(
             jPanel17Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -514,6 +515,14 @@ public class EffortGui extends javax.swing.JFrame {
             }
         });
         mnuProject.add(mnuExportProject);
+
+        jMenuItem1.setText("Import Project");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuImportProoject(evt);
+            }
+        });
+        mnuProject.add(jMenuItem1);
 
         mnuBar.add(mnuProject);
 
@@ -566,17 +575,16 @@ public class EffortGui extends javax.swing.JFrame {
     }//GEN-LAST:event_TOOLActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-         try {
+        try {
             int number = Integer.parseInt(jTextField1.getText());
-            if(number < 0)
+            if (number < 0) {
                 number = 0;
-            else if(number > 100)
+            } else if (number > 100) {
                 number = 100;
-            
+            }
+
             SimThreshold.setValue(number);
-        }
-        catch(NumberFormatException ex) {
-            
+        } catch (NumberFormatException ex) {
         }
     }//GEN-LAST:event_jTextField1ActionPerformed
 
@@ -608,20 +616,19 @@ public class EffortGui extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Invalid Lines of Code value, check that field!", "AESP Tool", JOptionPane.ERROR_MESSAGE);
             return null;
         }
-        
+
         return proj;
     }
-    
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         Project proj = createProject();
-        
+
         System.out.println(proj);
 
         //If you want to run with the database from the config file
         if (projectlist == null) {
-            if(path == null)
-            {
+            if (path == null) {
                 JOptionPane.showMessageDialog(this, "You have to open a database first before doing an estimate.", "Estimation failed", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -643,7 +650,7 @@ public class EffortGui extends javax.swing.JFrame {
         //TODO: Might not be the fastest way to do it, but it is simple.
         EstimationResult result = estim.estimate(SimThreshold.getValue() / 100.0, proj);
         ReportWindow rp = new ReportWindow(proj, result);
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -663,7 +670,7 @@ public class EffortGui extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.setMultiSelectionEnabled(false);
         chooser.setAcceptAllFileFilterUsed(false);
-        
+
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Project Database Format files (*.txt)", "txt");
         chooser.setFileFilter(filter);
 
@@ -726,7 +733,7 @@ public class EffortGui extends javax.swing.JFrame {
         JFileChooser chooser = new JFileChooser();
         chooser.setMultiSelectionEnabled(false);
         chooser.setAcceptAllFileFilterUsed(false);
-        
+
         FileNameExtensionFilter filter = new FileNameExtensionFilter("Project files (*.prj)", "prj");
         chooser.setFileFilter(filter);
 
@@ -748,41 +755,79 @@ public class EffortGui extends javax.swing.JFrame {
     }//GEN-LAST:event_SimThresholdStateChanged
 
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
-
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
-
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jTextField1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyReleased
         try {
             int number = Integer.parseInt(jTextField1.getText());
-            if(number < 0)
+            if (number < 0) {
                 number = 0;
-            else if(number > 100)
+            } else if (number > 100) {
                 number = 100;
-            
+            }
+
             SimThreshold.setValue(number);
-        }
-        catch(NumberFormatException ex) {
-            
+        } catch (NumberFormatException ex) {
         }
     }//GEN-LAST:event_jTextField1KeyReleased
 
-      private void setPosition() {
-        // Get the size of the screen
-    Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
- 
-    // Determine the new location of the window
-    int w = getSize().width;
-    int h = getSize().height;
-   // int x = (dim.width-w)/2;
-   // int y = (dim.height-h)/2;
+    private void mnuImportProoject(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportProoject
+        JFileChooser chooser = new JFileChooser();
+        chooser.setMultiSelectionEnabled(false);
+        chooser.setAcceptAllFileFilterUsed(false);
 
-    // Move the window
-    setLocation((dim.width-w)/2, (dim.height-h)/2);
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Project files (*.prj)", "prj");
+        chooser.setFileFilter(filter);
+        Project proj = null;
+        chooser.setApproveButtonText("Import");
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            String path = chooser.getSelectedFile().getAbsolutePath();
+            ImportProject ip = new ImportProject();
+            proj = ip.importProj(path);
+            // JOptionPane.showMessageDialog(this, "Exported project to " + path + ".", "Export complete.", JOptionPane.INFORMATION_MESSAGE);
+        }
+        Field[] fields = this.getClass().getDeclaredFields();
+        HashMap<String, Attribute> attributes = new HashMap<String, Attribute>();
+        for (Attribute attr : Attribute.values()) {
+            attributes.put(attr.name(), attr);
+        }
+        for (Field field : fields) {
+
+            if (proj.attributes().containsKey(attributes.get(field.getName()))) {
+                try {
+                    JComboBox current = (JComboBox) field.get(this);
+                    current.setSelectedItem(proj.attributes().get(attributes.get(field.getName())).toString());
+                    //proj.attributes().put(attributes.get(field.getName()), Rating.fromString((String) current.getSelectedItem()));
+                } catch (IllegalAccessException ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }
+
+
+        int linesOfCode = Math.round(proj.getLinesOfCode() / 1000);
+        LOC.setText(Integer.toString(linesOfCode));
+        proj.setLinesOfCode(Math.round(linesOfCode * 1000.0f));
+
+    }//GEN-LAST:event_mnuImportProoject
+
+    private void setPosition() {
+        // Get the size of the screen
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        // Determine the new location of the window
+        int w = getSize().width;
+        int h = getSize().height;
+        // int x = (dim.width-w)/2;
+        // int y = (dim.height-h)/2;
+
+        // Move the window
+        setLocation((dim.width - w) / 2, (dim.height - h) / 2);
     }
+
     /**
      * @param args the command line arguments
      */
@@ -844,6 +889,7 @@ public class EffortGui extends javax.swing.JFrame {
     private javax.swing.JComboBox VIRT;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
