@@ -35,6 +35,14 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuExportProjectPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Import Project"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuImportProoject"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
       </SubComponents>
@@ -211,7 +219,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="RELY" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -241,7 +249,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="DATA" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="DATA" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -275,7 +283,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="CPLX" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="CPLX" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -309,7 +317,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="TIME" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="TIME" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -346,7 +354,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="STOR" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="STOR" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -380,7 +388,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="VIRT" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="VIRT" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -417,7 +425,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="TURN" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="TURN" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -451,7 +459,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ACAP" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="ACAP" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -485,14 +493,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="MODP" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="MODP" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="MODP" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -522,7 +530,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="AEXP" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="AEXP" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -556,7 +564,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="VEXP" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="VEXP" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -593,7 +601,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="LEXP" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="LEXP" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -627,14 +635,14 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="PCAP" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="PCAP" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="PCAP" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="21" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="35" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -667,7 +675,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="TOOL" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="TOOL" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
@@ -704,7 +712,7 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="SCED" alignment="0" pref="176" max="32767" attributes="1"/>
+                  <Component id="SCED" alignment="0" pref="180" max="32767" attributes="1"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
