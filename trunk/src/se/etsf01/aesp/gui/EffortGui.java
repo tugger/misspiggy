@@ -738,7 +738,7 @@ public class EffortGui extends javax.swing.JFrame {
         chooser.setFileFilter(filter);
 
         chooser.setApproveButtonText("Export");
-        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+        if (chooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             String path = chooser.getSelectedFile().getAbsolutePath();
             ExportProject ep = new ExportProject(path, createProject());
             ep.export();
