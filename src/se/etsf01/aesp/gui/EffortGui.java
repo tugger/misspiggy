@@ -684,7 +684,7 @@ public class EffortGui extends javax.swing.JFrame {
     }//GEN-LAST:event_mnuOpenDatabaseActionPerformed
 
     private void readFromConfig() {
-        File config = new File("/h/d8/t/dt08ml7/NetBeansProjects/trunk/dist/config.ini");
+        File config = new File("config.ini");
         if (!config.exists()) {
             System.out.println("cant find config file");
 
