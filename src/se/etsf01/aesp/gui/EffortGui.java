@@ -147,10 +147,10 @@ public class EffortGui extends javax.swing.JFrame {
             }
         });
         SimThreshold.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 SimThresholdCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
 
@@ -200,14 +200,14 @@ public class EffortGui extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
-                .add(RELY, 0, 170, Short.MAX_VALUE)
+                .add(RELY, 0, 174, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel3Layout.createSequentialGroup()
                 .add(RELY, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 35, Short.MAX_VALUE))
+                .add(0, 21, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel3);
@@ -363,7 +363,7 @@ public class EffortGui extends javax.swing.JFrame {
             jPanel11Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel11Layout.createSequentialGroup()
                 .add(MODP, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 35, Short.MAX_VALUE))
+                .add(0, 21, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel11);
@@ -447,7 +447,7 @@ public class EffortGui extends javax.swing.JFrame {
             jPanel15Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel15Layout.createSequentialGroup()
                 .add(PCAP, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(0, 35, Short.MAX_VALUE))
+                .add(0, 21, Short.MAX_VALUE))
         );
 
         jPanel2.add(jPanel15);
@@ -516,7 +516,7 @@ public class EffortGui extends javax.swing.JFrame {
         });
         mnuProject.add(mnuExportProject);
 
-        jMenuItem1.setText("Import Project");
+        jMenuItem1.setText("Import Project...");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuImportProoject(evt);
