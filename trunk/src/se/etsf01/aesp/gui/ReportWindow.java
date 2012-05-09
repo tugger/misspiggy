@@ -207,7 +207,7 @@ public class ReportWindow extends javax.swing.JFrame {
             
             ExportHTML exporter = new ExportHTML(path, proj, result);
             if(exporter.export()) {
-                JOptionPane.showMessageDialog(this, "Successfull export!", "Export to HTML", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Successful export!", "Export to HTML", JOptionPane.INFORMATION_MESSAGE);
             }
             else
             {
