@@ -77,6 +77,7 @@
                     <tr>
                         <th>#</th>
                         <th>Similarity</th>
+                        <th>Name</th>
                         <th>Size (kLOC)</th>
                         <th>Actual Effort</th>
                         <xsl:for-each select="similar/characteristics/item">
